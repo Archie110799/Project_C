@@ -17,4 +17,4 @@ npm install @react-navigation/native-stack @react-navigation/bottom-tabs
 npm install react-native-screens react-native-safe-area-context
 npm i --save-dev @types/react-native-check-box react-native-check-box
 npm install react-native-dropdown-picker
-npm i --save-dev @types/react-native-wheel-pick
+npm i --save-dev @react-native-picker/picker @types/react-native-wheel-pick
