@@ -1,0 +1,17 @@
+# PROJECT
+https://reactnative.dev/docs/environment-setup
+
+# Install
+- Uninstall global react-native-cli @react-native-community/cli
+npm uninstall -g react-native-cli @react-native-community/cli
+- Install base source
+npx react-native init FlightApp --template react-native-template-typescript
+- Install lib
+npm install redux react-redux @reduxjs/toolkit @types/redux-logger redux-logger redux-persist
+npm install react-i18next i18next --save
+npm install axios moment
+npm install react-native-gesture-handler react-native-reanimated
+npm install --save react-native-draggable-flatlist
+npm install @react-native-async-storage/async-storage
+npm install @react-navigation/native-stack @react-navigation/bottom-tabs
+npm install react-native-screens react-native-safe-area-context
