@@ -7,11 +7,13 @@ import {persistReducer, persistStore} from 'redux-persist';
 import UserReducer from './user/user.reducer';
 import storage from 'redux-persist/es/storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import FlightReducer from './flight/flight.reducer';
 
 const loggerMiddleware = createLogger();
 
 const reducers = combineReducers({
   user: UserReducer,
+  flight: FlightReducer
 });
 
 const persistConfig = {

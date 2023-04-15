@@ -3,7 +3,13 @@ import {RootState, useAppDispatch} from '../../../redux/store';
 import {useSelector} from 'react-redux';
 import {fetchUser} from '../../../redux/user/user.service';
 import {clearUser} from '../../../redux/user/user.reducer';
-import { Text } from 'react-native';
+import {View} from 'react-native';
+import {CommonStyles} from '../../../utils/styles';
+import InputCustom from '../../../components/common/InputCustom/InputCustom';
+import TextCustom from '../../../components/common/TextCustom/TextCustom';
+import {Styles} from './Login.styles';
+import ButtonSubmit from '../../../components/common/ButtonSubmit/ButtonSubmit';
+import {Routes} from '../../../navigators/Routes';
 
 interface IProps {
   navigation?: any;
@@ -24,7 +30,27 @@ const Login: React.FC<IProps> = props => {
     user && console.log(user, loading, error);
   }, [user]);
 
-  return <Text>Login</Text>;
+  const handleLogin = () => {
+    console.log('login');
+    navigation.replace(Routes.auth.register);
+  };
+
+  return (
+    <View style={Styles.container}>
+      <TextCustom style={Styles.text__title}>LOGIN</TextCustom>
+      <InputCustom placeholder="Enter your email" lable="Email" value="1" />
+      <InputCustom
+        type="password"
+        placeholder="Enter your password"
+        lable="Password"
+      />
+      <ButtonSubmit
+        style={CommonStyles.margin__top__10}
+        title="Login"
+        onPress={handleLogin}
+      />
+    </View>
+  );
 };
 
 export default Login;

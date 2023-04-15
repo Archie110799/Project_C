@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
-import { responsive } from '../../../utils/responsive';
-import { CommonStyles } from '../../../utils/styles';
+import {responsive} from '../../../utils/responsive';
+import {CommonStyles} from '../../../utils/styles';
 
 export const Styles = StyleSheet.create({
   container: {
@@ -8,7 +8,7 @@ export const Styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   content: {
-    paddingHorizontal: responsive.getWidth(44),
+    paddingHorizontal: responsive.getWidth(40),
   },
   view__logo: {
     paddingTop: responsive.getHeight(64),

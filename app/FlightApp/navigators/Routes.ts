@@ -1,9 +1,13 @@
 export const Routes = {
   auth: {
     login: 'Login',
-    register: 'Register'
+    register: 'Register',
   },
   home: {
-    top: 'Top'
-  }
+    main: 'Main',
+    tabBar: 'TabBar',
+  },
+  user: {
+    profile: 'User Profile',
+  },
 };

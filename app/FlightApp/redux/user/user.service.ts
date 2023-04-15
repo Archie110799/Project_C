@@ -1,4 +1,4 @@
-import { AppThunk } from '../store';
+import {AppThunk} from '../store';
 import {getUserFailure, getUserStart, getUserSuccess} from './user.reducer';
 
 export const fetchUser =

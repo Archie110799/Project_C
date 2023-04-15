@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import { Styles } from './styles';
+import {Styles} from './BaseLayoutAuth.styles';
 
 interface IProps {
   children: ReactNode;
@@ -15,7 +15,7 @@ interface IProps {
   route?: any;
 }
 
-function BaseLayoutAuth(props: IProps) {
+const BaseLayoutAuth: React.FC<IProps> = props => {
   const {children, route} = props;
   return (
     <SafeAreaView style={Styles.container} edges={['top', 'left', 'right']}>
@@ -27,6 +27,6 @@ function BaseLayoutAuth(props: IProps) {
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
-}
+};
 
 export default BaseLayoutAuth;
