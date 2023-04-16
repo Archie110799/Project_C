@@ -22,15 +22,11 @@ import {getListFlightAsync} from '../../../redux/flight/flight.service';
 import {clearFlight} from '../../../redux/flight/flight.reducer';
 import DropdownCustom from '../../../components/common/DropdownCustom/DropdownCustom';
 import CheckboxCustom from '../../../components/common/CheckboxCustom/CheckboxCustom';
-import {Picker} from 'react-native-wheel-pick';
 import {
   DropdownList,
   DropdownNumber,
   PickerDate,
 } from 'react-native-ultimate-modal-picker';
-import {formatDate} from '../../../utils/date';
-import moment from 'moment';
-import DatePicker from 'react-native-date-picker';
 import InputDatePicker from '../../../components/common/InputDatePicker/InputDatePicker';
 
 interface IProps {
