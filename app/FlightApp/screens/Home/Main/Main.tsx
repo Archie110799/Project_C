@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {
+  Button,
   FlatList,
   ListRenderItem,
   LogBox,
@@ -21,7 +22,16 @@ import {getListFlightAsync} from '../../../redux/flight/flight.service';
 import {clearFlight} from '../../../redux/flight/flight.reducer';
 import DropdownCustom from '../../../components/common/DropdownCustom/DropdownCustom';
 import CheckboxCustom from '../../../components/common/CheckboxCustom/CheckboxCustom';
-import {Picker, DatePicker} from 'react-native-wheel-pick';
+import {Picker} from 'react-native-wheel-pick';
+import {
+  DropdownList,
+  DropdownNumber,
+  PickerDate,
+} from 'react-native-ultimate-modal-picker';
+import {formatDate} from '../../../utils/date';
+import moment from 'moment';
+import DatePicker from 'react-native-date-picker';
+import InputDatePicker from '../../../components/common/InputDatePicker/InputDatePicker';
 
 interface IProps {
   navigation?: any;
@@ -47,6 +57,7 @@ const Main: React.FC<IProps> = props => {
   const dispatch = useAppDispatch();
   const flatlistRef = useRef<FlatList<any>>(null);
   const [state, setState] = useState<IState>(defaultValue);
+  const [date, setDate] = useState(new Date());
   const {listItem, isLoadEndList} = state;
   const {flights} = useSelector((state: RootState) => state.flight);
   const provinces = [
@@ -57,23 +68,16 @@ const Main: React.FC<IProps> = props => {
     {label: 'PleiKu (PXU)', value: 'PXU'},
   ];
 
-  const amount = [
-    {label: 0, value: 0},
-    {label: 1, value: 1},
-    {label: 2, value: 2},
-    {label: 3, value: 3},
-  ];
-
   const handleLogout = () => {
     console.log('login');
-    navigation.replace(Routes.auth.login);
+    navigation.navigate(Routes.auth.login);
   };
 
   useEffect(() => {
     // dispatch(getListFlightAsync());
-    LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
+    // LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
     return () => {
-      dispatch(clearFlight());
+      // dispatch(clearFlight());
     };
   }, []);
 
@@ -100,7 +104,7 @@ const Main: React.FC<IProps> = props => {
   const _renderCheckBoxGroup = () => {
     return (
       <View style={CommonStyles.flex__row}>
-        <CheckboxCustom title={'Một chiều'} />
+        <CheckboxCustom title={'Một chiều'} checked={true} />
         <CheckboxCustom title={'Khứ hồi'} />
       </View>
     );
@@ -108,70 +112,73 @@ const Main: React.FC<IProps> = props => {
 
   const _renderSelectAddress = () => {
     return (
-      <>
-        <View style={CommonStyles.flex__row}>
-          <View
-            style={[
-              CommonStyles.flex__05,
-              CommonStyles.padding__horizontal__5,
-            ]}>
-            <Picker
-              pickerData={provinces}
-              selectedValue={provinces[0]}
-              onValueChange={value => {
-                console.log(value);
-              }}
-            />
-          </View>
-          <View
-            style={[
-              CommonStyles.flex__05,
-              CommonStyles.padding__horizontal__5,
-            ]}>
-            <Picker
-              pickerData={provinces}
-              selectedValue={provinces[1]}
-              onValueChange={value => {
-                console.log(value);
-              }}
-            />
-          </View>
+      <View style={[CommonStyles.flex__row]}>
+        <View style={[CommonStyles.flex__1]}>
+          <DropdownList
+            title="Điểm đi"
+            defaultValue={'DAD'}
+            items={provinces}
+            onChange={(value: string) => console.log(value)}
+          />
         </View>
+        <View style={[CommonStyles.flex__1]}>
+          <DropdownList
+            title="Điểm đến"
+            items={provinces}
+            defaultValue={'HAN'}
+            onChange={(value: string) => console.log(value)}
+          />
+        </View>
+      </View>
+    );
+  };
 
-        <View style={CommonStyles.flex__row}>
-          <View
-            style={[
-              CommonStyles.flex__05,
-              CommonStyles.padding__horizontal__5,
-            ]}>
-            <DropdownCustom placeholder="Người lớn" data={amount} />
-          </View>
-          <View
-            style={[
-              CommonStyles.flex__05,
-              CommonStyles.padding__horizontal__5,
-            ]}>
-            <DropdownCustom
-              placeholder="Trẻ em"
-              data={amount}
-              zIndex={2000}
-              zIndexInverse={2000}
-            />
-          </View>
-          <View
-            style={[
-              CommonStyles.flex__05,
-              CommonStyles.padding__horizontal__5,
-            ]}>
-            <DropdownCustom
-              placeholder="Em bé"
-              data={amount}
-              zIndex={2000}
-              zIndexInverse={2000}
-            />
-          </View>
+  const _renderCustomer = () => {
+    return (
+      <View style={[CommonStyles.flex__row]}>
+        <View style={[CommonStyles.flex__1]}>
+          <DropdownNumber
+            defaultValue="1"
+            title="Người lớn"
+            onChange={(value: string) => console.log(value)}
+          />
         </View>
-      </>
+        <View style={[CommonStyles.flex__1]}>
+          <DropdownNumber
+            defaultValue="0"
+            title="Trẻ em"
+            onChange={(value: string) => console.log(value)}
+          />
+        </View>
+        <View style={CommonStyles.flex__1}>
+          <DropdownNumber
+            defaultValue="0"
+            title="Em bé"
+            onChange={(value: string) => console.log(value)}
+          />
+        </View>
+      </View>
+    );
+  };
+
+  const _renderSelectTime = () => {
+    return (
+      <View>
+        <InputDatePicker
+          lable="Ngày di"
+          value={date}
+          onChange={date => {
+            setDate(date);
+          }}
+        />
+        <InputDatePicker
+          lable="Ngày ve"
+          value={date}
+          onChange={date => {
+            setDate(date);
+          }}
+        />
+      </View>
     );
   };
 
@@ -185,6 +192,8 @@ const Main: React.FC<IProps> = props => {
       />
       {_renderCheckBoxGroup()}
       {_renderSelectAddress()}
+      {_renderCustomer()}
+      {_renderSelectTime()}
       <FlatList
         style={CommonStyles.height__500}
         ref={flatlistRef}

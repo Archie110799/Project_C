@@ -9,12 +9,20 @@ import HomeStack from './HomeStack';
 const authNavigator = [
   {
     name: Routes.auth.login,
-    title: 'screens.auth.login.title',
+    title: 'Login Screen',
     component: Login,
   },
   {
     name: Routes.auth.register,
-    title: 'screens.auth.register.phone.title',
+    title: 'Register Screen',
+    component: Main,
+  },
+];
+
+const homeNavigator = [
+  {
+    name: Routes.home.main,
+    title: 'Home Screen',
     component: Main,
   },
 ];
@@ -24,7 +32,7 @@ const AppStack: React.FC = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: false,
+        headerShown: true,
         gestureEnabled: true,
         orientation: 'portrait',
       }}
@@ -43,9 +51,11 @@ const AppStack: React.FC = () => {
       </Stack.Group>
 
       {/* Stack Home */}
-      {/* <Stack.Screen name={Routes.home.main}>
-        {stackProps => <HomeStack {...stackProps} />}
-      </Stack.Screen> */}
+      {homeNavigator.map(item => (
+        <Stack.Screen name={item.name} key={`stack-home-${item.name}`}>
+          {props => <item.component {...props} />}
+        </Stack.Screen>
+      ))}
     </Stack.Navigator>
   );
 };

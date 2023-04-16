@@ -6,11 +6,12 @@ import CheckBox from 'react-native-check-box';
 interface IProps {
   style?: StyleProp<TextStyle>;
   title?: string;
+  checked?: boolean;
 }
 
 const CheckboxCustom: React.FC<IProps> = props => {
-  const {title} = props;
-  const [isSelected, setSelection] = useState(false);
+  const {title, checked = false} = props;
+  const [isSelected, setSelection] = useState(checked);
 
   return (
     <View style={Styles.container}>

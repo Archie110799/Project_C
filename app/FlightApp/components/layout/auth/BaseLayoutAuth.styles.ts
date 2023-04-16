@@ -8,7 +8,7 @@ export const Styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   content: {
-    paddingHorizontal: responsive.getWidth(40),
+    paddingHorizontal: responsive.getWidth(10),
   },
   view__logo: {
     paddingTop: responsive.getHeight(64),

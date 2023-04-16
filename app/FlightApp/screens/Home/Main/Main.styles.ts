@@ -5,7 +5,8 @@ import {CommonStyles} from '../../../utils/styles';
 export const Styles = StyleSheet.create({
   container: {
     flex:1,
-    padding: 20,
+    // padding: 20,
+    // backgroundColor:'red'
   },
   text__title:{
     ...CommonStyles.text__center,

@@ -32,7 +32,7 @@ const Login: React.FC<IProps> = props => {
 
   const handleLogin = () => {
     console.log('login');
-    navigation.replace(Routes.auth.register);
+    navigation.replace(Routes.home.main);
   };
 
   return (
