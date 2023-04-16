@@ -3,6 +3,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Routes} from './Routes';
 import {
+  AppState,
   Image,
   Keyboard,
   TouchableOpacity,
@@ -34,6 +35,7 @@ const HomeStack: React.FC<IProps> = props => {
     ],
     [],
   );
+
   return (
     <Stack.Navigator
       screenOptions={{
@@ -49,6 +51,7 @@ const HomeStack: React.FC<IProps> = props => {
           <Tab.Navigator
             screenOptions={{
               headerShown: true,
+              headerStyle: {...CommonStyles.bg__main},
               headerRight: () => (
                 <TouchableOpacity
                   style={CommonStyles.margin__right__10}

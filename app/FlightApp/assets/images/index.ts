@@ -6,4 +6,5 @@ export const ImageSource = {
   iconDate: require('./IconDate/iconDate.png'),
   iconPlus: require('./IconPlus/Vector.png'),
   imageLogo: require('./ImageLogo/Logo.png'),
+  imageBackground: require('./ImageBackground/bg.png'),
 };

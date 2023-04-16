@@ -4,7 +4,9 @@ import {CommonStyles} from '../../../utils/styles';
 
 export const Styles = StyleSheet.create({
   container: {
-    padding: 20,
+    padding: responsive.getWidth(30),
+    ...CommonStyles.border__white,
+    backgroundColor:'#FFFFFF'
   },
   text__title:{
     ...CommonStyles.text__center,

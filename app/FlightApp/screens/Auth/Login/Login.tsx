@@ -36,13 +36,12 @@ const Login: React.FC<IProps> = props => {
   };
 
   return (
-    <View style={Styles.container}>
+    <View style={[Styles.container, CommonStyles.margin__top__10]}>
       <TextCustom style={Styles.text__title}>Welcome</TextCustom>
       <InputCustom
-        styleText={CommonStyles.text__bold}
-        placeholder="Enter your email"
-        lable="Email"
-        value="1"
+        placeholder="Enter your user name"
+        lable="Username"
+        value="admin"
       />
       <InputCustom
         type="password"
@@ -53,7 +52,7 @@ const Login: React.FC<IProps> = props => {
         style={CommonStyles.margin__top__20}
         styleText={[CommonStyles.text__bold, CommonStyles.text__font__20]}
         title="Login"
-        onPress={handleLogin} 
+        onPress={handleLogin}
       />
     </View>
   );

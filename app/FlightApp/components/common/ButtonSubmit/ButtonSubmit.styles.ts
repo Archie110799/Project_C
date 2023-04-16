@@ -8,12 +8,14 @@ export const Styles = StyleSheet.create({
   },
   view__btn__submit: {
     ...CommonStyles.border__default,
+    ...CommonStyles.bg__main,
+    ...CommonStyles.border__main,
     padding: responsive.getHeight(10),
     width: responsive.getWidth(120),
   },
   text__btn__submit: {
     fontSize: responsive.getFont(16),
-    color: '#333333',
+    color: '#00233A',
     textAlign: 'center',
   },
 });

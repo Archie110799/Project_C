@@ -24,14 +24,21 @@ const BaseLayoutAuth: React.FC<IProps> = props => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'position' : 'height'}>
         <ScrollView style={Styles.content} alwaysBounceVertical={false}>
-          <View style={[CommonStyles.content__center, CommonStyles.margin__vertical__20]}>
+          <View
+            style={[
+              CommonStyles.content__center,
+              CommonStyles.margin__vertical__20,
+            ]}>
             <View
               style={[
                 CommonStyles.content__center,
                 CommonStyles.view__circle__border,
               ]}>
               <Image
-                style={CommonStyles.image__circle__xl}
+                style={[
+                  CommonStyles.view__circle__border,
+                  CommonStyles.image__circle__xl,
+                ]}
                 source={ImageSource.imageLogo}
               />
             </View>

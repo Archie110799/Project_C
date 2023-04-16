@@ -4,8 +4,8 @@ import {CommonStyles} from '../../../utils/styles';
 
 export const Styles = StyleSheet.create({
   container: {
+    ...CommonStyles.bg__main,
     flex: 1,
-    backgroundColor: '#FFFFFF',
   },
   content: {
     paddingHorizontal: responsive.getWidth(10),
@@ -30,5 +30,5 @@ export const Styles = StyleSheet.create({
   text__title: {
     ...CommonStyles.text__bold,
     fontSize: responsive.getFont(25),
-  }
+  },
 });

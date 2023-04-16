@@ -136,14 +136,31 @@ const Main: React.FC<IProps> = props => {
 
   return (
     <SafeAreaView style={Styles.container}>
-      {_renderCheckBoxGroup()}
-      {_renderSelectTime()}
-      {_renderSelectAddress()}
-      {_renderCustomer()}
+      <View
+        style={[
+          CommonStyles.border__white,
+          CommonStyles.bg__white,
+          CommonStyles.padding__20,
+          CommonStyles.margin__bottom__10,
+        ]}>
+        {_renderCheckBoxGroup()}
+        {_renderSelectTime()}
+      </View>
+      <View
+        style={[
+          CommonStyles.border__white,
+          CommonStyles.bg__white,
+          CommonStyles.padding__20,
+          CommonStyles.margin__bottom__10,
+        ]}>
+        {_renderSelectAddress()}
+        {_renderCustomer()}
+      </View>
 
       <ButtonSubmit
-        style={CommonStyles.margin__top__20}
-        title="Search"
+        style={[CommonStyles.border__white, CommonStyles.margin__top__10]}
+        styleText={CommonStyles.color__white}
+        title="Tìm kiếm"
         onPress={handleSearch}
       />
     </SafeAreaView>

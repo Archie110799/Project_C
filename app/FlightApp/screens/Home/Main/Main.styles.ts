@@ -4,13 +4,11 @@ import {CommonStyles} from '../../../utils/styles';
 
 export const Styles = StyleSheet.create({
   container: {
-    flex:1,
-    // padding: 20,
-    // backgroundColor:'red'
+    flex: 1,
   },
-  text__title:{
+  text__title: {
     ...CommonStyles.text__center,
     fontSize: responsive.getFont(25),
-    marginBottom: responsive.getHeight(20)
-  }
+    marginBottom: responsive.getHeight(20),
+  },
 });

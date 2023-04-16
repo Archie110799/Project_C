@@ -15,6 +15,7 @@ import {getListFlightAsync} from '../../../../redux/flight/flight.service';
 import {clearFlight} from '../../../../redux/flight/flight.reducer';
 import {CommonStyles} from '../../../../utils/styles';
 import {ImageSource} from '../../../../assets/images';
+import ButtonSubmit from '../../../../components/common/ButtonSubmit/ButtonSubmit';
 
 interface IProps {
   navigation?: any;
@@ -52,10 +53,13 @@ const FlightManagement: React.FC<IProps> = props => {
 
   const getListFlight = () => {
     dispatch(getListFlightAsync());
-    console.log('getListFlight');
   };
 
   const onRefresh = () => {
+    getListFlight();
+  };
+
+  const handleSearch = () => {
     getListFlight();
   };
 
@@ -132,7 +136,15 @@ const FlightManagement: React.FC<IProps> = props => {
       <TextCustom style={[Styles.text__title, CommonStyles.text__danger]}>
         {error}
       </TextCustom>
-      <FlatList
+      {error && (
+        <ButtonSubmit
+          style={[CommonStyles.border__white, CommonStyles.margin__top__10]}
+          styleText={CommonStyles.color__white}
+          title="Thử lại"
+          onPress={handleSearch}
+        />
+      )}
+      {/* <FlatList
         style={CommonStyles.height__500}
         ref={flatlistRef}
         refreshControl={
@@ -159,7 +171,7 @@ const FlightManagement: React.FC<IProps> = props => {
         }
         ListHeaderComponent={() => <></>}
         ListFooterComponent={() => <></>}
-      />
+      /> */}
     </View>
   );
 };

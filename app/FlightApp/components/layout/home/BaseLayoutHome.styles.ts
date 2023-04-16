@@ -5,7 +5,7 @@ import {CommonStyles} from '../../../utils/styles';
 export const Styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    ...CommonStyles.bg__main,
   },
   content: {
     paddingHorizontal: responsive.getWidth(10),

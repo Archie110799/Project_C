@@ -56,7 +56,7 @@ const InputDatePicker: React.FC<IProps> = props => {
           <View style={[Styles.input__view]}>
             <TextInput
               editable={false}
-              style={CommonStyles.flex__1}
+              style={[CommonStyles.flex__1, CommonStyles.text__normal]}
               defaultValue={formatDate(value)}
             />
             <Image style={Styles.icon} source={ImageSource.iconDate} />

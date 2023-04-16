@@ -2,6 +2,21 @@ import {StyleSheet} from 'react-native';
 import {responsive} from './responsive';
 
 export const CommonStyles = StyleSheet.create({
+  bg__main:{
+    backgroundColor: '#93D9F8'
+  },
+  bg__white:{
+    backgroundColor: '#FFFFFF'
+  },
+  color__main:{
+    color: '#93D9F8'
+  },
+  color__white:{
+    color: '#FFFFFF'
+  },
+  border__main:{
+    borderColor: '#93D9F8'
+  },
   flex__row: {
     flexDirection: 'row',
   },
@@ -28,6 +43,9 @@ export const CommonStyles = StyleSheet.create({
   },
   text__danger: {
     color: 'red',
+  },
+  text__normal:{
+    color: '#333333'
   },
   text__center: {
     textAlign: 'center',
@@ -91,6 +109,9 @@ export const CommonStyles = StyleSheet.create({
   margin__horizontal__5: {
     marginHorizontal: responsive.getWidth(5),
   },
+  padding__20:{
+    padding: responsive.getHeight(20)
+  },
   padding__vertical__20: {
     paddingVertical: responsive.getHeight(20),
   },
@@ -125,7 +146,7 @@ export const CommonStyles = StyleSheet.create({
       width: 2,
     },
     // Anroid
-    elevation: 5,
+    // elevation: 5,
   },
   image__circle__xl: {
     resizeMode: 'contain',
@@ -136,5 +157,15 @@ export const CommonStyles = StyleSheet.create({
     resizeMode: 'contain',
     width: responsive.getWidth(20),
     height: responsive.getWidth(20),
+  },
+  border__gray: {
+    borderColor: '#999999',
+    borderWidth: 1,
+    borderRadius: responsive.getHeight(10),
+  },
+  border__white: {
+    borderColor: '#FFFFFF',
+    borderWidth: 1,
+    borderRadius: responsive.getHeight(10),
   },
 });
