@@ -42,7 +42,7 @@ const HomeStack: React.FC<IProps> = props => {
       screenOptions={{
         gestureEnabled: true,
         headerBackImageSource:
-          Platform.OS === 'ios' ? null : ImageSource.iconBack,
+          Platform.OS === 'ios' ? undefined : ImageSource.iconBack,
       }}>
       <Stack.Screen
         name={Routes.home.tabBar}

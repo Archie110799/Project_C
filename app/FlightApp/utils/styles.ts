@@ -146,7 +146,7 @@ export const CommonStyles = StyleSheet.create({
       width: 2,
     },
     // Anroid
-    // elevation: 5,
+    elevation: 5,
   },
   image__circle__xl: {
     resizeMode: 'contain',

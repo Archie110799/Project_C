@@ -22,17 +22,10 @@ interface IProps {
 }
 
 interface IState {
-  listItem: any;
   isLoadEndList: boolean;
 }
 
 const defaultValue: IState = {
-  listItem: [
-    ['Hà Nội', '05:10', 'VJ199', 'Hồ Chí Minh', '07:20', '967,000', 'VND'],
-    ['Hà Nội', '06:00', 'VJ121', 'Hồ Chí Minh', '08:10', '967,000', 'VND'],
-    ['Hà Nội', '20:00', 'VJ155', 'Hồ Chí Minh', '22:10', '967,000', 'VND'],
-    ['Hà Nội', '21:00', 'VJ159', 'Hồ Chí Minh', '23:10', '967,000', 'VND'],
-  ],
   isLoadEndList: false,
 };
 
@@ -42,7 +35,7 @@ const FlightManagement: React.FC<IProps> = props => {
   const {flights, error} = useSelector((state: RootState) => state.flight);
   const flatlistRef = useRef<FlatList<any>>(null);
   const [state, setState] = useState<IState>(defaultValue);
-  const {listItem, isLoadEndList} = state;
+  const {isLoadEndList} = state;
 
   useEffect(() => {
     getListFlight();
@@ -77,12 +70,13 @@ const FlightManagement: React.FC<IProps> = props => {
           CommonStyles.margin__bottom__10,
           CommonStyles.padding__horizontal__10,
           CommonStyles.padding__vertical__20,
+          CommonStyles.bg__main
         ]}>
         <View style={CommonStyles.flex__row}>
           <View
             style={[
               CommonStyles.content__center,
-              CommonStyles.padding__horizontal__10,
+              CommonStyles.padding__horizontal__5,
             ]}>
             <TextCustom>{typeof item === 'number' ? item : item[0]}</TextCustom>
             <TextCustom
@@ -93,7 +87,7 @@ const FlightManagement: React.FC<IProps> = props => {
           <View
             style={[
               CommonStyles.content__center,
-              CommonStyles.padding__horizontal__10,
+              CommonStyles.padding__horizontal__5,
             ]}>
             <TextCustom
               style={[CommonStyles.text__font__20, CommonStyles.text__bold]}>
@@ -103,7 +97,7 @@ const FlightManagement: React.FC<IProps> = props => {
           <View
             style={[
               CommonStyles.content__center,
-              CommonStyles.padding__horizontal__10,
+              CommonStyles.padding__horizontal__5,
             ]}>
             <TextCustom>{typeof item === 'number' ? item : item[3]}</TextCustom>
             <TextCustom
@@ -133,10 +127,13 @@ const FlightManagement: React.FC<IProps> = props => {
 
   return (
     <View style={Styles.container}>
-      <TextCustom style={[Styles.text__title, CommonStyles.text__danger]}>
-        {error}
-      </TextCustom>
-      {error && (
+      {!!error && (
+        <TextCustom style={[Styles.text__title, CommonStyles.text__danger]}>
+          {error}
+        </TextCustom>
+      )}
+
+      {!flights?.length && (
         <ButtonSubmit
           style={[CommonStyles.border__white, CommonStyles.margin__top__10]}
           styleText={CommonStyles.color__white}
@@ -144,7 +141,8 @@ const FlightManagement: React.FC<IProps> = props => {
           onPress={handleSearch}
         />
       )}
-      {/* <FlatList
+
+      <FlatList
         style={CommonStyles.height__500}
         ref={flatlistRef}
         refreshControl={
@@ -169,9 +167,7 @@ const FlightManagement: React.FC<IProps> = props => {
             )}
           </>
         }
-        ListHeaderComponent={() => <></>}
-        ListFooterComponent={() => <></>}
-      /> */}
+      />
     </View>
   );
 };
