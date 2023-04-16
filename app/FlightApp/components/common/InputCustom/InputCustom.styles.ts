@@ -18,8 +18,8 @@ export const Styles = StyleSheet.create({
     paddingVertical: responsive.getWidth(10),
   },
   icon: {
-    width: responsive.getWidth(20),
-    height: responsive.getWidth(20),
-    marginRight: responsive.getWidth(5),
+    width: responsive.getWidth(15),
+    height: responsive.getWidth(15),
+    marginRight: responsive.getWidth(15),
   },
 });

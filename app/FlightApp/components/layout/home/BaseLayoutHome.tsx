@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Styles} from './BaseLayoutAuth.styles';
+import {Styles} from './BaseLayoutHome.styles';
 import {ImageSource} from '../../../assets/images';
 import {CommonStyles} from '../../../utils/styles';
 
@@ -17,31 +17,22 @@ interface IProps {
   route?: any;
 }
 
-const BaseLayoutAuth: React.FC<IProps> = props => {
+const BaseLayoutHome: React.FC<IProps> = props => {
   const {children, route} = props;
   return (
     <SafeAreaView style={Styles.container} edges={['top', 'left', 'right']}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'position' : 'height'}>
         <ScrollView style={Styles.content} alwaysBounceVertical={false}>
-          <View style={[CommonStyles.content__center, CommonStyles.margin__vertical__20]}>
-            <View
-              style={[
-                CommonStyles.content__center,
-                CommonStyles.view__circle__border,
-              ]}>
-              <Image
-                style={CommonStyles.image__circle__xl}
-                source={ImageSource.imageLogo}
-              />
-            </View>
+          <View
+            style={CommonStyles.padding__horizontal__10}
+            onStartShouldSetResponder={() => true}>
+            {children}
           </View>
-
-          {children}
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
 };
 
-export default BaseLayoutAuth;
+export default BaseLayoutHome;

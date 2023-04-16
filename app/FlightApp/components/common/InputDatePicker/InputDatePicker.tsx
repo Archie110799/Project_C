@@ -59,7 +59,7 @@ const InputDatePicker: React.FC<IProps> = props => {
               style={CommonStyles.flex__1}
               defaultValue={formatDate(value)}
             />
-            <Image style={Styles.icon} source={ImageSource.iconLogout} />
+            <Image style={Styles.icon} source={ImageSource.iconDate} />
           </View>
         </TouchableOpacity>
         <DatePicker

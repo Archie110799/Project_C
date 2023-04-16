@@ -1,9 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {
-  Button,
   FlatList,
   ListRenderItem,
-  LogBox,
   RefreshControl,
   SafeAreaView,
   TouchableOpacity,
@@ -12,22 +10,12 @@ import {
 import TextCustom from '../../../components/common/TextCustom/TextCustom';
 import {Styles} from './Main.styles';
 import {CommonStyles} from '../../../utils/styles';
-import ButtonSubmit from '../../../components/common/ButtonSubmit/ButtonSubmit';
 import {Routes} from '../../../navigators/Routes';
 import {RootState, useAppDispatch} from '../../../redux/store';
-import {useSelector} from 'react-redux';
-import {fetchUser} from '../../../redux/user/user.service';
-import {clearUser} from '../../../redux/user/user.reducer';
-import {getListFlightAsync} from '../../../redux/flight/flight.service';
-import {clearFlight} from '../../../redux/flight/flight.reducer';
-import DropdownCustom from '../../../components/common/DropdownCustom/DropdownCustom';
 import CheckboxCustom from '../../../components/common/CheckboxCustom/CheckboxCustom';
-import {
-  DropdownList,
-  DropdownNumber,
-  PickerDate,
-} from 'react-native-ultimate-modal-picker';
+import {DropdownList, DropdownNumber} from 'react-native-ultimate-modal-picker';
 import InputDatePicker from '../../../components/common/InputDatePicker/InputDatePicker';
+import ButtonSubmit from '../../../components/common/ButtonSubmit/ButtonSubmit';
 
 interface IProps {
   navigation?: any;
@@ -50,12 +38,9 @@ const defaultValue: IState = {
 
 const Main: React.FC<IProps> = props => {
   const {navigation} = props;
-  const dispatch = useAppDispatch();
-  const flatlistRef = useRef<FlatList<any>>(null);
   const [state, setState] = useState<IState>(defaultValue);
   const [date, setDate] = useState(new Date());
   const {listItem, isLoadEndList} = state;
-  const {flights} = useSelector((state: RootState) => state.flight);
   const provinces = [
     {label: 'Hà Nội (HAN)', value: 'HAN'},
     {label: 'Hồ Chí Minh (SGN)', value: 'SGN'},
@@ -64,42 +49,9 @@ const Main: React.FC<IProps> = props => {
     {label: 'PleiKu (PXU)', value: 'PXU'},
   ];
 
-  const handleLogout = () => {
-    console.log('login');
-    navigation.navigate(Routes.auth.login);
-  };
-
-  useEffect(() => {
-    // dispatch(getListFlightAsync());
-    // LogBox.ignoreLogs(['VirtualizedLists should never be nested']);
-    return () => {
-      // dispatch(clearFlight());
-    };
-  }, []);
-
-  const getListFlight = () => {};
-
-  const onRefresh = () => {
-    getListFlight();
-  };
-
-  const handlePressItem = () => {
-    console.log('handlePressItem');
-  };
-
-  const _renderItem: ListRenderItem<any> = ({item}) => {
-    return (
-      <TouchableOpacity onPress={handlePressItem} style={CommonStyles.flex__1}>
-        <TextCustom>
-          {typeof item === 'number' ? item : item?.join('・')}
-        </TextCustom>
-      </TouchableOpacity>
-    );
-  };
-
   const _renderCheckBoxGroup = () => {
     return (
-      <View style={CommonStyles.flex__row}>
+      <View style={[CommonStyles.flex__row, {height: 40}]}>
         <CheckboxCustom title={'Một chiều'} checked={true} />
         <CheckboxCustom title={'Khứ hồi'} />
       </View>
@@ -108,8 +60,8 @@ const Main: React.FC<IProps> = props => {
 
   const _renderSelectAddress = () => {
     return (
-      <View style={[CommonStyles.flex__row]}>
-        <View style={[CommonStyles.flex__1]}>
+      <View style={[CommonStyles.flex__row, CommonStyles.margin__top__10]}>
+        <View style={CommonStyles.flex__1}>
           <DropdownList
             title="Điểm đi"
             defaultValue={'DAD'}
@@ -117,7 +69,7 @@ const Main: React.FC<IProps> = props => {
             onChange={(value: string) => console.log(value)}
           />
         </View>
-        <View style={[CommonStyles.flex__1]}>
+        <View style={CommonStyles.flex__1}>
           <DropdownList
             title="Điểm đến"
             items={provinces}
@@ -161,14 +113,14 @@ const Main: React.FC<IProps> = props => {
     return (
       <View>
         <InputDatePicker
-          lable="Ngày di"
+          lable="Ngày đi"
           value={date}
           onChange={date => {
             setDate(date);
           }}
         />
         <InputDatePicker
-          lable="Ngày ve"
+          lable="Ngày về"
           value={date}
           onChange={date => {
             setDate(date);
@@ -178,45 +130,21 @@ const Main: React.FC<IProps> = props => {
     );
   };
 
+  const handleSearch = () => {
+    navigation.navigate(Routes.home.list);
+  };
+
   return (
     <SafeAreaView style={Styles.container}>
-      <TextCustom style={Styles.text__title}>Main</TextCustom>
-      <ButtonSubmit
-        style={CommonStyles.margin__bottom__5}
-        title="Logout"
-        onPress={handleLogout}
-      />
       {_renderCheckBoxGroup()}
+      {_renderSelectTime()}
       {_renderSelectAddress()}
       {_renderCustomer()}
-      {_renderSelectTime()}
-      <FlatList
-        style={CommonStyles.height__500}
-        ref={flatlistRef}
-        refreshControl={
-          <RefreshControl refreshing={false} onRefresh={onRefresh} />
-        }
-        data={listItem}
-        onEndReachedThreshold={0.1}
-        scrollEventThrottle={1}
-        renderItem={_renderItem}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        ListEmptyComponent={
-          <>
-            {isLoadEndList && (
-              <View
-                onStartShouldSetResponder={() => true}
-                style={[CommonStyles.height__500]}>
-                <TextCustom style={[CommonStyles.text__center]}>
-                  List empty
-                </TextCustom>
-              </View>
-            )}
-          </>
-        }
-        ListHeaderComponent={() => <></>}
-        ListFooterComponent={() => <></>}
+
+      <ButtonSubmit
+        style={CommonStyles.margin__top__20}
+        title="Search"
+        onPress={handleSearch}
       />
     </SafeAreaView>
   );

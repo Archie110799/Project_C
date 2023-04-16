@@ -32,7 +32,7 @@ const AppStack: React.FC = () => {
   return (
     <Stack.Navigator
       screenOptions={{
-        headerShown: true,
+        headerShown: false,
         gestureEnabled: true,
         orientation: 'portrait',
       }}
@@ -51,11 +51,9 @@ const AppStack: React.FC = () => {
       </Stack.Group>
 
       {/* Stack Home */}
-      {homeNavigator.map(item => (
-        <Stack.Screen name={item.name} key={`stack-home-${item.name}`}>
-          {props => <item.component {...props} />}
-        </Stack.Screen>
-      ))}
+      <Stack.Screen name={Routes.home.main}>
+        {stackProps => <HomeStack {...stackProps} />}
+      </Stack.Screen>
     </Stack.Navigator>
   );
 };

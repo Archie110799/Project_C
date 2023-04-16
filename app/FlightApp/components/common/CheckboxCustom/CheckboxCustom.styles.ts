@@ -1,20 +1,19 @@
 import {StyleSheet} from 'react-native';
 import {responsive} from '../../../utils/responsive';
+import { CommonStyles } from '../../../utils/styles';
 
 export const Styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   checkboxContainer: {
+    alignItems: 'center',
     flexDirection: 'row',
-    marginBottom: 20,
   },
   checkbox: {
     alignSelf: 'center',
   },
   label: {
-    margin: 8,
+    marginLeft: responsive.getWidth(10),
   },
 });

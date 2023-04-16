@@ -105,11 +105,11 @@ const InputCustom: React.FC<IProps> = props => {
             <TouchableOpacity
               onPress={() => setSecureTextEntry(!secureTextEntry)}>
               <Image
-                style={[Styles.icon]}
+                style={Styles.icon}
                 source={
                   secureTextEntry
-                    ? ImageSource.iconLogout
-                    : ImageSource.iconLogout
+                    ? ImageSource.iconShowPwd
+                    : ImageSource.iconHidePwd
                 }
               />
             </TouchableOpacity>

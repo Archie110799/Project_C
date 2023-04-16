@@ -14,6 +14,15 @@ export const CommonStyles = StyleSheet.create({
   flex__03: {
     flex: 0.3,
   },
+  text__font__30: {
+    fontSize: responsive.getFont(30),
+  },
+  text__font__20: {
+    fontSize: responsive.getFont(20),
+  },
+  text__font__14: {
+    fontSize: responsive.getFont(14),
+  },
   text__bold: {
     fontWeight: '700',
   },
@@ -36,6 +45,9 @@ export const CommonStyles = StyleSheet.create({
     borderColor: 'red',
     borderWidth: 1,
     borderRadius: responsive.getWidth(5),
+  },
+  margin__top__20: {
+    marginTop: responsive.getHeight(20),
   },
   margin__top__10: {
     marginTop: responsive.getHeight(10),
@@ -70,6 +82,24 @@ export const CommonStyles = StyleSheet.create({
   margin__vertical__5: {
     marginVertical: responsive.getHeight(5),
   },
+  margin__horizontal__20: {
+    marginHorizontal: responsive.getWidth(20),
+  },
+  margin__horizontal__10: {
+    marginHorizontal: responsive.getWidth(10),
+  },
+  margin__horizontal__5: {
+    marginHorizontal: responsive.getWidth(5),
+  },
+  padding__vertical__20: {
+    paddingVertical: responsive.getHeight(20),
+  },
+  padding__vertical__10: {
+    paddingVertical: responsive.getHeight(10),
+  },
+  padding__vertical__5: {
+    paddingVertical: responsive.getHeight(5),
+  },
   padding__horizontal__20: {
     paddingHorizontal: responsive.getWidth(20),
   },
@@ -81,5 +111,30 @@ export const CommonStyles = StyleSheet.create({
   },
   height__500: {
     height: responsive.getHeight(500),
+  },
+  view__circle__border: {
+    borderWidth: 10,
+    borderColor: '#FFFFFF',
+    borderRadius: responsive.getWidth(100),
+    shadowColor: '#333333',
+    // IOS
+    shadowOpacity: 1,
+    shadowRadius: 5,
+    shadowOffset: {
+      height: 2,
+      width: 2,
+    },
+    // Anroid
+    elevation: 5,
+  },
+  image__circle__xl: {
+    resizeMode: 'contain',
+    width: responsive.getWidth(200),
+    height: responsive.getWidth(200),
+  },
+  icon__default: {
+    resizeMode: 'contain',
+    width: responsive.getWidth(20),
+    height: responsive.getWidth(20),
   },
 });

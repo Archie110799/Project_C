@@ -19,12 +19,12 @@ const Login: React.FC<IProps> = props => {
   const {user, loading, error} = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(fetchUser('1'));
-    return () => {
-      dispatch(clearUser());
-    };
-  }, []);
+  // useEffect(() => {
+  //   dispatch(fetchUser('1'));
+  //   return () => {
+  //     dispatch(clearUser());
+  //   };
+  // }, []);
 
   useEffect(() => {
     user && console.log(user, loading, error);
@@ -37,17 +37,23 @@ const Login: React.FC<IProps> = props => {
 
   return (
     <View style={Styles.container}>
-      <TextCustom style={Styles.text__title}>LOGIN</TextCustom>
-      <InputCustom placeholder="Enter your email" lable="Email" value="1" />
+      <TextCustom style={Styles.text__title}>Welcome</TextCustom>
+      <InputCustom
+        styleText={CommonStyles.text__bold}
+        placeholder="Enter your email"
+        lable="Email"
+        value="1"
+      />
       <InputCustom
         type="password"
         placeholder="Enter your password"
         lable="Password"
       />
       <ButtonSubmit
-        style={CommonStyles.margin__top__10}
+        style={CommonStyles.margin__top__20}
+        styleText={[CommonStyles.text__bold, CommonStyles.text__font__20]}
         title="Login"
-        onPress={handleLogin}
+        onPress={handleLogin} 
       />
     </View>
   );

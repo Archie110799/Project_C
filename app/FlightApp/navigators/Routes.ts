@@ -5,7 +5,9 @@ export const Routes = {
   },
   home: {
     main: 'Main',
+    top: 'Top',
     tabBar: 'TabBar',
+    list: 'List',
   },
   user: {
     profile: 'User Profile',

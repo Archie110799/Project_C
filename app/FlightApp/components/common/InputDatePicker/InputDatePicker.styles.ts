@@ -18,14 +18,14 @@ export const Styles = StyleSheet.create({
     paddingVertical: responsive.getWidth(10),
   },
   icon: {
-    width: responsive.getWidth(20),
-    height: responsive.getWidth(20),
+    width: responsive.getWidth(30),
+    height: responsive.getWidth(30),
   },
   input__view:{
     height: responsive.getHeight(40),
     borderRadius: responsive.getWidth(5),
     borderWidth: responsive.getWidth(1),
-    paddingHorizontal: responsive.getHeight(15),
+    paddingHorizontal: responsive.getHeight(10),
     flexDirection: 'row',
     alignItems: 'center',
   }
