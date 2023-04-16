@@ -6,6 +6,7 @@ import {
   AppState,
   Image,
   Keyboard,
+  Platform,
   TouchableOpacity,
   TouchableWithoutFeedback,
   View,
@@ -40,7 +41,8 @@ const HomeStack: React.FC<IProps> = props => {
     <Stack.Navigator
       screenOptions={{
         gestureEnabled: true,
-        headerBackImageSource: ImageSource.iconBack,
+        headerBackImageSource:
+          Platform.OS === 'ios' ? null : ImageSource.iconBack,
       }}>
       <Stack.Screen
         name={Routes.home.tabBar}
@@ -83,7 +85,24 @@ const HomeStack: React.FC<IProps> = props => {
 
       <Stack.Group>
         {topNavigator.map(item => (
-          <Stack.Screen name={item.name} key={`stack-top-${item.name}`}>
+          <Stack.Screen
+            options={{
+              headerShown: true,
+              headerStyle: {...CommonStyles.bg__main},
+              headerBackTitle: undefined,
+              headerRight: () => (
+                <TouchableOpacity
+                  style={CommonStyles.margin__right__10}
+                  onPress={() => navigation.navigate(Routes.auth.login)}>
+                  <Image
+                    style={CommonStyles.icon__default}
+                    source={ImageSource.iconLogout}
+                  />
+                </TouchableOpacity>
+              ),
+            }}
+            name={item.name}
+            key={`stack-top-${item.name}`}>
             {stackProps => (
               <TouchableWithoutFeedback
                 onPress={Keyboard.dismiss}
