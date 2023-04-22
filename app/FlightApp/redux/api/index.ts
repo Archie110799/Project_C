@@ -7,8 +7,9 @@ const {dispatch} = store;
 const API = axios.create({
   baseURL: API_URL,
   headers: {
-    'X-Custom-Header': 'guardlock',
+    'X-Custom-Header': 'flight',
   },
+  timeout: 5000,
 });
 
 API.interceptors.request.use(
@@ -49,9 +50,11 @@ API.interceptors.response.use(
       console.log('API 500');
     }
 
+    const urlNotAuth = ['/auth/new-token', '/user/login'];
+
     if (
       error.response?.status === 401 &&
-      originalRequest.url !== '/auth/new-token'
+      !urlNotAuth?.includes(originalRequest)
     ) {
       await refreshToken();
       return API(originalRequest);
@@ -75,6 +78,10 @@ export const refreshToken = async () => {
   //       });
   //   }
 };
+
+// api auth
+export const loginAPI = (params: IRequestLogin) =>
+  API.post('/user/login', params);
 
 // api user
 export const getInfoUsers = () => API.get('/user/info');

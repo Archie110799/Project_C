@@ -55,6 +55,7 @@ const InputCustom: React.FC<IProps> = props => {
     onChangeText,
     onBlur,
     type = 'default',
+    error,
   } = props;
 
   const [secureTextEntry, setSecureTextEntry] = useState(type === 'password');
@@ -115,6 +116,9 @@ const InputCustom: React.FC<IProps> = props => {
             </TouchableOpacity>
           )}
         </View>
+        {error && (
+          <TextCustom style={CommonStyles.text__danger}>{error}</TextCustom>
+        )}
       </View>
     </TouchableWithoutFeedback>
   );

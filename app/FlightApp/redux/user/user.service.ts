@@ -1,3 +1,4 @@
+import {loginAPI} from '../api';
 import {AppThunk} from '../store';
 import {getUserFailure, getUserStart, getUserSuccess} from './user.reducer';
 
@@ -12,6 +13,25 @@ export const fetchUser =
       const data = await response.json();
       dispatch(getUserSuccess(data));
     } catch (error: any) {
-      dispatch(getUserFailure(error.message));
+      dispatch(getUserFailure(error));
     }
+  };
+
+export const loginAction =
+  (params: IRequestLogin, callback?: (data: IUser) => void): AppThunk =>
+  async dispatch => {
+    dispatch(getUserStart());
+    return loginAPI(params)
+      .then(response => {
+        dispatch(getUserSuccess(response?.data));
+        callback && callback(response?.data);
+        return response;
+      })
+      .catch(error => {
+        dispatch(getUserFailure(error));
+        return error;
+      })
+      .finally(() => {
+        console.log('--------loginAPI finaly');
+      });
   };

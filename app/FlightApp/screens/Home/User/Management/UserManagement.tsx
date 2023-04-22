@@ -1,8 +1,6 @@
 import React, {useEffect} from 'react';
 import {RootState, useAppDispatch} from '../../../../redux/store';
 import {useSelector} from 'react-redux';
-import {fetchUser} from '../../../../redux/user/user.service';
-import {clearUser} from '../../../../redux/user/user.reducer';
 import {Routes} from '../../../../navigators/Routes';
 import {View} from 'react-native';
 import TextCustom from '../../../../components/common/TextCustom/TextCustom';
@@ -17,15 +15,8 @@ const UserManagement: React.FC<IProps> = props => {
   const dispatch = useAppDispatch();
 
   // useEffect(() => {
-  //   dispatch(fetchUser('1'));
-  //   return () => {
-  //     dispatch(clearUser());
-  //   };
-  // }, []);
-
-  useEffect(() => {
-    user && console.log(user);
-  }, [user]);
+  //   user && console.log(user);
+  // }, [user]);
 
   return (
     <View style={Styles.container}>
