@@ -2,20 +2,17 @@ import {StyleSheet} from 'react-native';
 import {responsive} from './responsive';
 
 export const CommonStyles = StyleSheet.create({
-  bg__main:{
-    backgroundColor: '#93D9F8'
+  bg__main: {
+    backgroundColor: '#93D9F8',
   },
-  bg__white:{
-    backgroundColor: '#FFFFFF'
+  bg__white: {
+    backgroundColor: '#FFFFFF',
   },
-  color__main:{
-    color: '#93D9F8'
+  color__main: {
+    color: '#93D9F8',
   },
-  color__white:{
-    color: '#FFFFFF'
-  },
-  border__main:{
-    borderColor: '#93D9F8'
+  color__white: {
+    color: '#FFFFFF',
   },
   flex__row: {
     flexDirection: 'row',
@@ -44,8 +41,8 @@ export const CommonStyles = StyleSheet.create({
   text__danger: {
     color: 'red',
   },
-  text__normal:{
-    color: '#333333'
+  text__normal: {
+    color: '#333333',
   },
   text__center: {
     textAlign: 'center',
@@ -53,16 +50,6 @@ export const CommonStyles = StyleSheet.create({
   content__center: {
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  border__default: {
-    borderColor: '#333333',
-    borderWidth: 1,
-    borderRadius: responsive.getWidth(5),
-  },
-  border__danger: {
-    borderColor: 'red',
-    borderWidth: 1,
-    borderRadius: responsive.getWidth(5),
   },
   margin__top__20: {
     marginTop: responsive.getHeight(20),
@@ -109,8 +96,8 @@ export const CommonStyles = StyleSheet.create({
   margin__horizontal__5: {
     marginHorizontal: responsive.getWidth(5),
   },
-  padding__20:{
-    padding: responsive.getHeight(20)
+  padding__20: {
+    padding: responsive.getHeight(20),
   },
   padding__vertical__20: {
     paddingVertical: responsive.getHeight(20),
@@ -167,5 +154,15 @@ export const CommonStyles = StyleSheet.create({
     borderColor: '#FFFFFF',
     borderWidth: 1,
     borderRadius: responsive.getHeight(10),
+  },
+  border__main: {
+    borderColor: '#93D9F8',
+    borderWidth: 1,
+    borderRadius: responsive.getWidth(5),
+  },
+  border__danger: {
+    borderColor: 'red',
+    borderWidth: 1,
+    borderRadius: responsive.getWidth(5),
   },
 });

@@ -7,7 +7,6 @@ export const Styles = StyleSheet.create({
     ...CommonStyles.content__center,
   },
   view__btn__submit: {
-    ...CommonStyles.border__default,
     ...CommonStyles.bg__main,
     ...CommonStyles.border__main,
     padding: responsive.getHeight(10),

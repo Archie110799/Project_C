@@ -9,7 +9,6 @@ const API = axios.create({
   headers: {
     'X-Custom-Header': 'flight',
   },
-  timeout: 5000,
 });
 
 API.interceptors.request.use(
@@ -88,3 +87,6 @@ export const getInfoUsers = () => API.get('/user/info');
 export const updateInfoUser = async (formData: IUserUpdate) => {
   return await API.put('/user/info', formData);
 };
+
+// api flight
+export const getFlightList = (params: string) => API.get(`/?req=${params}`);

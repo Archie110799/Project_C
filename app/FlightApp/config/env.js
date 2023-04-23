@@ -1,5 +1,5 @@
 // export const API_URL = 'http://127.0.0.1/api/v1';
-export const API_URL = 'https://ebb2-118-68-7-146.ngrok-free.app';
+export const API_URL = 'https://de2d-116-110-28-82.ngrok-free.app';
 export const WIDTH_DEVICE_FONT = 425;
 export const WIDTH_DEVICE = 375;
 export const HEIGHT_DEVICE = 667;

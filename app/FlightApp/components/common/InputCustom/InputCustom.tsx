@@ -84,7 +84,7 @@ const InputCustom: React.FC<IProps> = props => {
         <View
           style={[
             CommonStyles.flex__row,
-            CommonStyles.border__default,
+            CommonStyles.border__main,
             CommonStyles.content__center,
           ]}>
           <TextInput

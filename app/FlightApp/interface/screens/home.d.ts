@@ -1,3 +1,3 @@
 interface IHome {
-    
+    // user : IUser
 }

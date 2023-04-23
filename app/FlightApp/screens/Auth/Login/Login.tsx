@@ -17,7 +17,7 @@ interface IProps {
   navigation?: any;
 }
 
-const loginValidationSchema = Yup.object({
+const validationSchema = Yup.object({
   name: Yup.string().required('required').trim(),
   password: Yup.string()
     .required('required')
@@ -25,8 +25,8 @@ const loginValidationSchema = Yup.object({
 });
 
 const initValue: IRequestLogin = {
-  name: '',
-  password: '',
+  name: 'admin',
+  password: 'admin',
 };
 
 const Login: React.FC<IProps> = props => {
@@ -45,7 +45,7 @@ const Login: React.FC<IProps> = props => {
   return (
     <Formik
       initialValues={initValue}
-      validationSchema={loginValidationSchema}
+      validationSchema={validationSchema}
       onSubmit={(values, {setFieldValue, setSubmitting}) => {
         handleLogin(values);
       }}>

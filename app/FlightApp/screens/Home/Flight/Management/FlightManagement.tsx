@@ -19,6 +19,7 @@ import ButtonSubmit from '../../../../components/common/ButtonSubmit/ButtonSubmi
 
 interface IProps {
   navigation?: any;
+  route?: any;
 }
 
 interface IState {
@@ -30,7 +31,7 @@ const defaultValue: IState = {
 };
 
 const FlightManagement: React.FC<IProps> = props => {
-  const {navigation} = props;
+  const {navigation, route} = props;
   const dispatch = useAppDispatch();
   const {flights, error} = useSelector((state: RootState) => state.flight);
   const flatlistRef = useRef<FlatList<any>>(null);
@@ -45,7 +46,7 @@ const FlightManagement: React.FC<IProps> = props => {
   }, []);
 
   const getListFlight = () => {
-    dispatch(getListFlightAsync());
+    dispatch(getListFlightAsync(route?.params?.req));
   };
 
   const onRefresh = () => {
@@ -70,7 +71,7 @@ const FlightManagement: React.FC<IProps> = props => {
           CommonStyles.margin__bottom__10,
           CommonStyles.padding__horizontal__10,
           CommonStyles.padding__vertical__20,
-          CommonStyles.bg__main
+          CommonStyles.bg__main,
         ]}>
         <View style={CommonStyles.flex__row}>
           <View
@@ -129,7 +130,7 @@ const FlightManagement: React.FC<IProps> = props => {
     <View style={Styles.container}>
       {!!error && (
         <TextCustom style={[Styles.text__title, CommonStyles.text__danger]}>
-          {error}
+          {'Đã xảy ra lỗi. Vui lòng tải lại trang!'}
         </TextCustom>
       )}
 
@@ -137,7 +138,7 @@ const FlightManagement: React.FC<IProps> = props => {
         <ButtonSubmit
           style={[CommonStyles.border__white, CommonStyles.margin__top__10]}
           styleText={CommonStyles.color__white}
-          title="Thử lại"
+          title="Tải lại trang"
           onPress={handleSearch}
         />
       )}

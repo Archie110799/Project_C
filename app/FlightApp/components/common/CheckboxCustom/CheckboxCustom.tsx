@@ -7,11 +7,11 @@ interface IProps {
   style?: StyleProp<TextStyle>;
   title?: string;
   checked?: boolean;
+  onClick?: () => void;
 }
 
 const CheckboxCustom: React.FC<IProps> = props => {
-  const {title, checked = false} = props;
-  const [isSelected, setSelection] = useState(checked);
+  const {title, checked = false, onClick} = props;
 
   return (
     <View style={Styles.container}>
@@ -19,9 +19,9 @@ const CheckboxCustom: React.FC<IProps> = props => {
         <CheckBox
           style={Styles.checkbox}
           onClick={() => {
-            setSelection(prev => !prev);
+            onClick && onClick();
           }}
-          isChecked={isSelected}
+          isChecked={checked}
           leftText={'CheckBox'}
         />
         <Text style={Styles.label}>{title}</Text>
