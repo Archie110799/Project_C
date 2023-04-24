@@ -11,7 +11,7 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import {FlightManagement, Main, UserManagement} from '../screens';
+import {FlightManagement, FlightOrder, Main, UserManagement} from '../screens';
 import {ImageSource} from '../assets/images';
 import {CommonStyles} from '../utils/styles';
 import BaseLayoutHome from '../components/layout/home/BaseLayoutHome';
@@ -28,10 +28,16 @@ const HomeStack: React.FC<IProps> = props => {
 
   const topNavigator = useMemo(
     () => [
+      // Flight
       {
         name: Routes.home.list,
         title: 'List',
         component: FlightManagement,
+      },
+      {
+        name: Routes.home.order,
+        title: 'Order',
+        component: FlightOrder,
       },
     ],
     [],

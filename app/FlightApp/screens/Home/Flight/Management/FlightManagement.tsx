@@ -12,10 +12,14 @@ import {
 import TextCustom from '../../../../components/common/TextCustom/TextCustom';
 import {Styles} from './FlightManagement.styles';
 import {getListFlightAsync} from '../../../../redux/flight/flight.service';
-import {clearFlight} from '../../../../redux/flight/flight.reducer';
+import {
+  clearFlight,
+  selectFlight,
+} from '../../../../redux/flight/flight.reducer';
 import {CommonStyles} from '../../../../utils/styles';
 import {ImageSource} from '../../../../assets/images';
 import ButtonSubmit from '../../../../components/common/ButtonSubmit/ButtonSubmit';
+import {Routes} from '../../../../navigators/Routes';
 
 interface IProps {
   navigation?: any;
@@ -40,9 +44,6 @@ const FlightManagement: React.FC<IProps> = props => {
 
   useEffect(() => {
     getListFlight();
-    return () => {
-      dispatch(clearFlight());
-    };
   }, []);
 
   const getListFlight = () => {
@@ -57,14 +58,21 @@ const FlightManagement: React.FC<IProps> = props => {
     getListFlight();
   };
 
-  const handlePressItem = () => {
-    console.log('handlePressItem');
+  const handlePressItem = (item: any) => {
+    dispatch(selectFlight(item));
+    navigation.navigate(Routes.home.order);
   };
 
   const _renderItem: ListRenderItem<any> = ({item}) => {
+    const from = item[0];
+    const timeFrom = item[1];
+    const code = item[2];
+    const to = item[3];
+    const timeTo = item[4];
+    const price = item[5];
     return (
       <TouchableOpacity
-        onPress={handlePressItem}
+        onPress={() => handlePressItem(item)}
         style={[
           CommonStyles.flex__1,
           CommonStyles.border__danger,
@@ -79,10 +87,10 @@ const FlightManagement: React.FC<IProps> = props => {
               CommonStyles.content__center,
               CommonStyles.padding__horizontal__5,
             ]}>
-            <TextCustom>{typeof item === 'number' ? item : item[0]}</TextCustom>
+            <TextCustom>{from}</TextCustom>
             <TextCustom
               style={[CommonStyles.text__font__20, CommonStyles.text__bold]}>
-              {typeof item === 'number' ? item : item[1]}
+              {timeFrom}
             </TextCustom>
           </View>
           <View
@@ -92,7 +100,7 @@ const FlightManagement: React.FC<IProps> = props => {
             ]}>
             <TextCustom
               style={[CommonStyles.text__font__20, CommonStyles.text__bold]}>
-              {typeof item === 'number' ? item : item[2]}
+              {code}
             </TextCustom>
           </View>
           <View
@@ -100,10 +108,10 @@ const FlightManagement: React.FC<IProps> = props => {
               CommonStyles.content__center,
               CommonStyles.padding__horizontal__5,
             ]}>
-            <TextCustom>{typeof item === 'number' ? item : item[3]}</TextCustom>
+            <TextCustom>{to}</TextCustom>
             <TextCustom
               style={[CommonStyles.text__font__20, CommonStyles.text__bold]}>
-              {typeof item === 'number' ? item : item[4]}
+              {timeTo}
             </TextCustom>
           </View>
 
@@ -118,7 +126,7 @@ const FlightManagement: React.FC<IProps> = props => {
                 CommonStyles.text__bold,
                 CommonStyles.text__danger,
               ]}>
-              {typeof item === 'number' ? item : item[5]}
+              {price}
             </TextCustom>
           </View>
         </View>

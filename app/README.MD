@@ -17,4 +17,5 @@ npm install @react-navigation/native-stack @react-navigation/bottom-tabs
 npm install react-native-screens react-native-safe-area-context
 npm i --save-dev @types/react-native-check-box react-native-check-box
 npm install react-native-dropdown-picker
-npm i react-native-ultimate-modal-picker react-native-date-picker @react-native-community/datetimepicker
+npm i react-native-select-dropdown react-native-date-picker @react-native-community/datetimepicker
+npm i formik yup

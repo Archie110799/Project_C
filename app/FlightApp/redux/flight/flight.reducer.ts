@@ -2,12 +2,14 @@ import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 interface FlightState {
   flights: any;
+  flightSelected: any;
   loading: boolean;
   error: string | null;
 }
 
 const initialState: FlightState = {
-  flights: null,
+  flights: [],
+  flightSelected: undefined,
   loading: false,
   error: null,
 };
@@ -29,15 +31,24 @@ const flightSlice = createSlice({
       state.loading = false;
       state.error = action.payload;
     },
+    selectFlight(state, action: PayloadAction<string>) {
+      state.flightSelected = action.payload;
+    },
     clearFlight(state) {
-      state.flights = null;
+      state.flightSelected = undefined;
+      state.flights = [];
       state.loading = false;
       state.error = null;
     },
   },
 });
 
-export const {getFlightStart, getFlightSuccess, getFlightFailure, clearFlight} =
-  flightSlice.actions;
+export const {
+  getFlightStart,
+  getFlightSuccess,
+  getFlightFailure,
+  selectFlight,
+  clearFlight,
+} = flightSlice.actions;
 
 export default flightSlice.reducer;
