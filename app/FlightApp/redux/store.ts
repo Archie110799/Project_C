@@ -4,14 +4,15 @@ import {ThunkAction} from 'redux-thunk';
 import {Action, combineReducers} from 'redux';
 import {createLogger} from 'redux-logger';
 import {persistReducer, persistStore} from 'redux-persist';
-import UserReducer from './user/user.reducer';
-import storage from 'redux-persist/es/storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import UserReducer from './user/user.reducer';
 import FlightReducer from './flight/flight.reducer';
+import CommonReducer from './common/common.reducer';
 
 const loggerMiddleware = createLogger();
 
 const reducers = combineReducers({
+  common: CommonReducer,
   user: UserReducer,
   flight: FlightReducer
 });
@@ -30,7 +31,6 @@ export const store = configureStore({
       serializableCheck: false,
     }).concat(loggerMiddleware);
   },
-  //   devTools: process.env.NODE_ENV !== "production",
 });
 
 export let persistor = persistStore(store);

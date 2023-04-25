@@ -82,6 +82,9 @@ export const refreshToken = async () => {
 export const loginAPI = (params: IRequestLogin) =>
   API.post('/user/login', params);
 
+export const registerAPI = (params: IRequestRegister) =>
+  API.post('/user', params);
+
 // api user
 export const getInfoUsers = () => API.get('/user/info');
 export const updateInfoUser = async (formData: IUserUpdate) => {

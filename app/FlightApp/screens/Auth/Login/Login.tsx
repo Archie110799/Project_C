@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {RootState, useAppDispatch} from '../../../redux/store';
 import {loginAction} from '../../../redux/user/user.service';
 import {View} from 'react-native';
@@ -12,6 +12,7 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {validationSpacePassword} from '../../../utils/regex';
 import {useSelector} from 'react-redux';
+import {clearErrorUser} from '../../../redux/user/user.reducer';
 
 interface IProps {
   navigation?: any;
@@ -42,6 +43,10 @@ const Login: React.FC<IProps> = props => {
     );
   };
 
+  useEffect(() => {
+    dispatch(clearErrorUser());
+  }, []);
+
   return (
     <Formik
       initialValues={initValue}
@@ -59,10 +64,10 @@ const Login: React.FC<IProps> = props => {
       }) => {
         return (
           <View style={[Styles.container, CommonStyles.margin__top__10]}>
-            <TextCustom style={Styles.text__title}>Welcome</TextCustom>
+            <TextCustom style={Styles.text__title}>Xin chào</TextCustom>
             <InputCustom
-              placeholder="Enter your user name"
-              lable="Username"
+              placeholder="Nhập tên tài khoản..."
+              lable="Tài khoản"
               value={values.name}
               onChangeText={handleChange('name')}
               onBlur={() => setFieldTouched('name')}
@@ -70,8 +75,8 @@ const Login: React.FC<IProps> = props => {
             />
             <InputCustom
               type="password"
-              placeholder="Enter your password"
-              lable="Password"
+              placeholder="Nhập mật khẩu của bạn..."
+              lable="Mật khẩu"
               value={values.password}
               onChangeText={handleChange('password')}
               onBlur={() => setFieldTouched('password')}
@@ -86,10 +91,23 @@ const Login: React.FC<IProps> = props => {
                 {error?.message}
               </TextCustom>
             )}
+
+            <TextCustom
+              isLink={true}
+              to={{
+                screen: Routes.auth.register,
+                params: {
+                  text: 'Đăng ký tài khoản',
+                },
+              }}
+              style={CommonStyles.text__link}>
+              {'Đăng ký tài khoản'}
+            </TextCustom>
+
             <ButtonSubmit
               style={CommonStyles.margin__top__20}
               styleText={[CommonStyles.text__bold, CommonStyles.text__font__20]}
-              title="Login"
+              title="Đăng nhập"
               onPress={handleSubmit}
             />
           </View>

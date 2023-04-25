@@ -41,6 +41,10 @@ export const CommonStyles = StyleSheet.create({
   text__danger: {
     color: 'red',
   },
+  text__link: {
+    color: 'blue',
+    textDecorationLine: 'underline',
+  },
   text__normal: {
     color: '#333333',
   },
@@ -133,7 +137,7 @@ export const CommonStyles = StyleSheet.create({
       width: 2,
     },
     // Anroid
-    elevation: 5,
+    // elevation: 5,
   },
   image__circle__xl: {
     resizeMode: 'contain',
@@ -164,5 +168,8 @@ export const CommonStyles = StyleSheet.create({
     borderColor: 'red',
     borderWidth: 1,
     borderRadius: responsive.getWidth(5),
+  },
+  justifyContent__spaceEvenly: {
+    justifyContent: 'space-evenly',
   },
 });

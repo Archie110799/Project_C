@@ -8,7 +8,7 @@ interface IProps {
   numberOfLines?: number;
   children?: React.ReactNode;
   isLink?: boolean;
-  to?: string;
+  to?: any;
 }
 
 const TextCustom: React.FC<IProps> = props => {

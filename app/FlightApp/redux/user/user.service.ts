@@ -1,4 +1,4 @@
-import {loginAPI} from '../api';
+import {loginAPI, registerAPI} from '../api';
 import {AppThunk} from '../store';
 import {getUserFailure, getUserStart, getUserSuccess} from './user.reducer';
 
@@ -32,6 +32,25 @@ export const loginAction =
         return error;
       })
       .finally(() => {
-        console.log('--------loginAPI finaly');
+        console.log('--------loginAction finaly');
+      });
+  };
+
+export const registerAction =
+  (params: IRequestRegister, callback?: (data: IUser) => void): AppThunk =>
+  async dispatch => {
+    dispatch(getUserStart());
+    return registerAPI(params)
+      .then(response => {
+        dispatch(getUserSuccess(response?.data));
+        callback && callback(response?.data);
+        return response;
+      })
+      .catch(error => {
+        dispatch(getUserFailure(error.response ? error.response.data : error));
+        return error;
+      })
+      .finally(() => {
+        console.log('--------registerAction finaly');
       });
   };

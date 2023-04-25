@@ -3,7 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Routes} from './Routes';
 import {t} from 'i18next';
 import BaseLayoutAuth from '../components/layout/auth/BaseLayoutAuth';
-import {Login, Main} from '../screens';
+import {Login, Main, Register} from '../screens';
 import HomeStack from './HomeStack';
 
 const authNavigator = [
@@ -15,7 +15,7 @@ const authNavigator = [
   {
     name: Routes.auth.register,
     title: 'Register Screen',
-    component: Main,
+    component: Register,
   },
 ];
 

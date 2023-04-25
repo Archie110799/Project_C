@@ -27,13 +27,15 @@ const ButtonSubmit: React.FC<IProps> = props => {
     onPress && onPress();
   };
   return (
-    <TouchableOpacity onPress={handlePress} style={Styles.view__press__submit}>
-      <View style={[Styles.view__btn__submit, style]}>
+    <View style={Styles.view__press__submit}>
+      <TouchableOpacity
+        onPress={handlePress}
+        style={[Styles.view__btn__submit, style]}>
         <TextCustom style={[Styles.text__btn__submit, styleText]}>
           {t(title) ?? title}
         </TextCustom>
-      </View>
-    </TouchableOpacity>
+      </TouchableOpacity>
+    </View>
   );
 };
 

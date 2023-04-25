@@ -15,3 +15,12 @@ interface IRequestLogin {
   name: string;
   password?: string;
 }
+
+interface IRequestRegister {
+  name: string;
+  password: string;
+  confirmPassword: string;
+  email: string;
+  gender: string | number;
+  phone: string;
+}

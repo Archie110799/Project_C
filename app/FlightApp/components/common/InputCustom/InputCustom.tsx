@@ -46,7 +46,7 @@ const InputCustom: React.FC<IProps> = props => {
     styleText,
     lable,
     styleLabel,
-    isRequired = true,
+    isRequired = false,
     value,
     placeholder,
     disabled,
@@ -91,7 +91,7 @@ const InputCustom: React.FC<IProps> = props => {
             style={[Styles.text__style, styleText]}
             allowFontScaling={false}
             autoCorrect={false}
-            placeholder={t(placeholder ?? '') ?? ''}
+            placeholder={t(placeholder ?? '') ?? placeholder}
             value={value}
             editable={!disabled}
             autoFocus={false}
