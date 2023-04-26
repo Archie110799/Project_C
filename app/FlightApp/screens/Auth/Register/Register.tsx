@@ -47,6 +47,7 @@ const initValue: IRequestRegister = {
   email: 'user1@gmail.com',
   gender: '0',
   phone: '0123456789',
+  type: 1,
 };
 
 const Register: React.FC<IProps> = props => {

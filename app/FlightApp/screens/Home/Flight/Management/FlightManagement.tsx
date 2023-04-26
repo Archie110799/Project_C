@@ -20,6 +20,7 @@ import {CommonStyles} from '../../../../utils/styles';
 import {ImageSource} from '../../../../assets/images';
 import ButtonSubmit from '../../../../components/common/ButtonSubmit/ButtonSubmit';
 import {Routes} from '../../../../navigators/Routes';
+import moment from 'moment';
 
 interface IProps {
   navigation?: any;
@@ -47,7 +48,18 @@ const FlightManagement: React.FC<IProps> = props => {
   }, []);
 
   const getListFlight = () => {
-    dispatch(getListFlightAsync(route?.params?.req));
+    const values = route?.params?.req;
+    const roundTrip = route?.params?.roundTrip;
+    const formatDateFrom = moment(values.dateFrom).format('DDMMYYYY');
+    const formatDateTo = moment(values.dateTo).format('DDMMYYYY');
+    const textTimeFrom = `${values.from.value}${values.to.value}${formatDateFrom}`;
+    const textTimeTo = `-${values.to.value}${values.from.value}${formatDateTo}`;
+    const textReq = `${textTimeFrom}${roundTrip ? textTimeTo : ''}-${
+      values.adults
+    }-${values.children}-${values.babies}`;
+    console.log({textReq});
+    
+    dispatch(getListFlightAsync(textReq));
   };
 
   const onRefresh = () => {
@@ -60,7 +72,9 @@ const FlightManagement: React.FC<IProps> = props => {
 
   const handlePressItem = (item: any) => {
     dispatch(selectFlight(item));
-    navigation.navigate(Routes.home.order);
+    navigation.navigate(Routes.home.order, {
+      req: route?.params?.req,
+    });
   };
 
   const _renderItem: ListRenderItem<any> = ({item}) => {

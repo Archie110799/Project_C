@@ -23,4 +23,5 @@ interface IRequestRegister {
   email: string;
   gender: string | number;
   phone: string;
+  type: number
 }

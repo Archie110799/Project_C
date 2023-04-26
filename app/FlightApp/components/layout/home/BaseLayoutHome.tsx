@@ -8,7 +8,6 @@ import {
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {Styles} from './BaseLayoutHome.styles';
-import {ImageSource} from '../../../assets/images';
 import {CommonStyles} from '../../../utils/styles';
 
 interface IProps {

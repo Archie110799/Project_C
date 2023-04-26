@@ -8,13 +8,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import UserReducer from './user/user.reducer';
 import FlightReducer from './flight/flight.reducer';
 import CommonReducer from './common/common.reducer';
+import ProvinceReducer from './province/province.reducer';
 
 const loggerMiddleware = createLogger();
 
 const reducers = combineReducers({
   common: CommonReducer,
   user: UserReducer,
-  flight: FlightReducer
+  flight: FlightReducer,
+  province: ProvinceReducer,
 });
 
 const persistConfig = {

@@ -5,6 +5,7 @@ import { responsive } from '../../../../utils/responsive';
 export const Styles = StyleSheet.create({
   container: {
     padding: 20,
+    ...CommonStyles.bg__main
   },
   text__title:{
     ...CommonStyles.text__center,

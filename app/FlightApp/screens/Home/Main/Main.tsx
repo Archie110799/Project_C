@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, View} from 'react-native';
 import {Styles} from './Main.styles';
 import {CommonStyles} from '../../../utils/styles';
@@ -11,6 +11,8 @@ import * as Yup from 'yup';
 import {Formik} from 'formik';
 import DropdownCustom from '../../../components/common/DropdownCustom/DropdownCustom';
 import moment from 'moment';
+import {useSelector} from 'react-redux';
+import {getListProvinceAsync} from '../../../redux/province/province.service';
 
 interface IProps {
   navigation?: any;
@@ -42,39 +44,31 @@ interface IFormSearch {
   children: number;
   babies: number;
 }
-const initValueForm: IFormSearch = {
-  dateFrom: new Date(),
-  dateTo: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
-  from: {label: 'Hà Nội (HAN)', value: 'HAN'},
-  to: {label: 'Hồ Chí Minh (SGN)', value: 'SGN'},
-  adults: 1,
-  children: 0,
-  babies: 0,
-};
-
-const provinces = [
-  {label: 'Hà Nội (HAN)', value: 'HAN'},
-  {label: 'Hồ Chí Minh (SGN)', value: 'SGN'},
-  {label: 'Đà Nẵng (DAD)', value: 'DAD'},
-  {label: 'Hải Phòng (HPH)', value: 'HPH'},
-  {label: 'PleiKu (PXU)', value: 'PXU'},
-];
 
 const Main: React.FC<IProps> = props => {
   const {navigation} = props;
+  const {provinces} = useSelector((state: RootState) => state.province);
+  const initValueForm: IFormSearch = {
+    dateFrom: new Date(),
+    dateTo: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+    from: provinces?.length ? provinces[0] : undefined,
+    to: provinces?.length ? provinces[1] : undefined,
+    adults: 1,
+    children: 0,
+    babies: 0,
+  };
+  const dispatch = useAppDispatch();
   const [state, setState] = useState(defaultValue);
   const {roundTrip} = state;
-  const handleSearch = (values: IFormSearch) => {
-    const formatDateFrom = moment(values.dateFrom).format('DDMMYYYY');
-    const formatDateTo = moment(values.dateTo).format('DDMMYYYY');
-    const textTimeFrom = `${values.from.value}${values.to.value}${formatDateFrom}`;
-    const textTimeTo = `-${values.to.value}${values.from.value}${formatDateTo}`;
-    const textReq = `${textTimeFrom}${roundTrip ? textTimeTo : ''}-${
-      values.adults
-    }-${values.children}-${values.babies}`;
 
+  useEffect(() => {
+    dispatch(getListProvinceAsync());
+  }, []);
+
+  const handleSearch = (values: IFormSearch) => {
     navigation.navigate(Routes.home.list, {
-      req: textReq,
+      req: values,
+      roundTrip : roundTrip
     });
   };
 
@@ -141,10 +135,10 @@ const Main: React.FC<IProps> = props => {
                     setFieldValue('from', selectedItem);
                   }}
                   buttonTextAfterSelection={(selectedItem, index) => {
-                    return selectedItem?.label;
+                    return selectedItem?.lable;
                   }}
                   rowTextForSelection={(item, index) => {
-                    return item?.label;
+                    return item?.lable;
                   }}
                   dropdownStyle={{
                     width: '45%',
@@ -164,10 +158,10 @@ const Main: React.FC<IProps> = props => {
                     setFieldValue('to', selectedItem);
                   }}
                   buttonTextAfterSelection={(selectedItem, index) => {
-                    return selectedItem?.label;
+                    return selectedItem?.lable;
                   }}
                   rowTextForSelection={(item, index) => {
-                    return item?.label;
+                    return item?.lable;
                   }}
                   dropdownStyle={{
                     width: '45%',
