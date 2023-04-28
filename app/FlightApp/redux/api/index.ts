@@ -94,5 +94,14 @@ export const updateInfoUser = async (formData: IUserUpdate) => {
 // api flight
 export const getFlightList = (params: string) => API.get(`/?req=${params}`);
 
+// api Order
+export const getListFlightOrder = () => API.get(`/flight`);
+export const getListFlightOrderByUser = (userId : string | number) => API.get(`/flight/${userId}`);
+
+
+export const createFlightOrder = async (formData: IRequestOrder) => {
+  return await API.post('/flight', formData);
+};
+
 // api province
 export const getProvinceList = () => API.get(`/provinces`);

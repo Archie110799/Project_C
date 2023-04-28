@@ -148,6 +148,7 @@ const Register: React.FC<IProps> = props => {
               onChangeText={handleChange('phone')}
               onBlur={() => setFieldTouched('phone')}
               error={touched.phone && errors.phone ? errors.phone : undefined}
+              keyboardType="numeric"
             />
 
             <RadioButton.Group

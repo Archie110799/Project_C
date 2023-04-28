@@ -7,16 +7,16 @@ interface IRequestOrder {
   from?: string;
   to?: string;
   price?: string;
-  adults?: Array<IAdults>;
+  adults: Array<IAdult>;
   children?: number;
   babies?: number;
-  dateFrom?: Date;
-  dateTo?: Date;
+  dateFrom?: string;
+  dateTo?: string;
 }
 
-interface IAdults {
+interface IAdult {
   name: string;
-  gender: number;
+  gender: number | string;
   ccid: string;
-  birthDate: Date;
+  birthDate: string;
 }

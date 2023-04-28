@@ -23,6 +23,3 @@ export const getListFlightAsync =
         console.log('--------getFlightList finaly');
       });
   };
-
-
-  

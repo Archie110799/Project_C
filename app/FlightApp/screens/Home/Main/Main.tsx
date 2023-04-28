@@ -68,7 +68,7 @@ const Main: React.FC<IProps> = props => {
   const handleSearch = (values: IFormSearch) => {
     navigation.navigate(Routes.home.list, {
       req: values,
-      roundTrip : roundTrip
+      roundTrip: roundTrip,
     });
   };
 
@@ -241,6 +241,7 @@ const Main: React.FC<IProps> = props => {
                 onChange={value => {
                   setFieldValue('dateFrom', value);
                 }}
+                minimumDate={new Date()}
               />
               {roundTrip && (
                 <InputDatePicker
@@ -249,6 +250,7 @@ const Main: React.FC<IProps> = props => {
                   onChange={value => {
                     setFieldValue('dateTo', value);
                   }}
+                  minimumDate={values.from.add(1, 'day')}
                 />
               )}
             </View>

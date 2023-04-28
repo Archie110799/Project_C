@@ -100,6 +100,9 @@ export const CommonStyles = StyleSheet.create({
   margin__horizontal__5: {
     marginHorizontal: responsive.getWidth(5),
   },
+  padding__10: {
+    padding: responsive.getHeight(10),
+  },
   padding__20: {
     padding: responsive.getHeight(20),
   },

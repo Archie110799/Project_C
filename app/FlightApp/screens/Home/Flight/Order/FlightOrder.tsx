@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {RootState, useAppDispatch} from '../../../../redux/store';
 import {useSelector} from 'react-redux';
 import {Routes} from '../../../../navigators/Routes';
@@ -10,9 +10,13 @@ import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {validationEmail, validationPhone} from '../../../../utils/regex';
 import InputCustom from '../../../../components/common/InputCustom/InputCustom';
-import {RadioButton} from 'react-native-paper';
+import {RadioButton, Text} from 'react-native-paper';
 import ButtonSubmitGroup from '../../../../components/common/ButtonSubmitGroup/ButtonSubmitGroup';
 import ButtonSubmit from '../../../../components/common/ButtonSubmit/ButtonSubmit';
+import RegisterAdultForm from '../Form/RegisterAdult/RegisterAdult';
+import moment from 'moment';
+import {formatDate} from '../../../../utils/date';
+import {createOrderFlightAsync} from '../../../../redux/order/order.service';
 
 interface IProps {
   navigation?: any;
@@ -34,28 +38,47 @@ const FlightOrder: React.FC<IProps> = props => {
   const {user} = useSelector((state: RootState) => state.user);
   const dispatch = useAppDispatch();
   const req = route?.params?.req;
+  const [currentStep, setCurrentStep] = useState(0);
 
   const initValue: IRequestOrder = {
     userId: user?._id,
-    name: '',
-    email: '',
+    name: 'asd',
+    email: 'asd@gmail.com',
     gender: '0',
-    phone: '',
+    phone: '2342342343',
     from: flightSelected[0],
     to: flightSelected[3],
     price: flightSelected[5],
     adults: [],
     children: req.children,
     babies: req.babies,
-    dateFrom: flightSelected[1],
-    dateTo: flightSelected[4],
+    dateFrom: `${moment(req.dateFrom).format('DD-MM-YYYY')} ${
+      flightSelected[1]
+    }`,
+    dateTo: `${moment(req.dateTo).format('DD-MM-YYYY')} ${flightSelected[4]}`,
   };
 
-  useEffect(() => {
-    flightSelected && console.log(flightSelected);
-  }, [flightSelected]);
+  const handleNextStep = () => {
+    setCurrentStep(prev => {
+      return (prev += 1);
+    });
+  };
 
-  const handleCreateOrder = (_info: IRequestOrder) => {};
+  const handleBackStep = () => {
+    setCurrentStep(prev => {
+      return prev > 0 ? (prev -= 1) : prev;
+    });
+  };
+
+  const handleCreateOrder = (_info: IRequestOrder) => {
+    console.log(_info);
+
+    dispatch(
+      createOrderFlightAsync(_info, () => {
+        console.log('callback');
+      }),
+    );
+  };
 
   const _renderInfoFlight = () => {
     const from = flightSelected[0];
@@ -142,79 +165,126 @@ const FlightOrder: React.FC<IProps> = props => {
           setFieldTouched,
           touched,
           handleSubmit,
+          setFieldValue,
         }) => {
           const _renderFormAdules = () => {
-            console.log();
-
             if (req?.adults) {
-              return [...Array(req?.adults ?? 0).keys()].map(
-                (item) => {
-                  return (
-                    <>
-                      <TextCustom>
-                        Thông tin khách hàng thứ {item + 1}
-                      </TextCustom>
-                      <InputCustom
-                        isRequired={true}
-                        placeholder="Nhập họ và tên..."
-                        lable="Họ và tên"
-                        value={values.name}
-                        onChangeText={handleChange('name')}
-                        onBlur={() => setFieldTouched('name')}
-                        error={
-                          touched.name && errors.name ? errors.name : undefined
-                        }
-                      />
-                      <InputCustom
-                        placeholder="Nhập email..."
-                        lable="Email"
-                        value={values.email}
-                        onChangeText={handleChange('email')}
-                        onBlur={() => setFieldTouched('email')}
-                        error={
-                          touched.email && errors.email
-                            ? errors.email
-                            : undefined
-                        }
-                      />
-                      <InputCustom
-                        isRequired={true}
-                        placeholder="Nhập số điện thoại..."
-                        lable="Số điện thoại"
-                        value={values.phone}
-                        onChangeText={handleChange('phone')}
-                        onBlur={() => setFieldTouched('phone')}
-                        error={
-                          touched.phone && errors.phone
-                            ? errors.phone
-                            : undefined
-                        }
-                      />
-
-                      <RadioButton.Group
-                        onValueChange={handleChange('gender')}
-                        value={values.gender as string}>
-                        <View
-                          style={[
-                            CommonStyles.flex__row,
-                            CommonStyles.justifyContent__spaceEvenly,
-                          ]}>
-                          <View>
-                            <TextCustom>Nam</TextCustom>
-                            <RadioButton value={'0'} />
-                          </View>
-                          <View>
-                            <TextCustom>Nữ</TextCustom>
-                            <RadioButton value={'1'} />
-                          </View>
-                        </View>
-                      </RadioButton.Group>
-                    </>
-                  );
-                },
-              );
+              return [...Array(req?.adults).keys()].map(item => {
+                return (
+                  <RegisterAdultForm
+                    key={`RegisterAdultForm-${item}`}
+                    onSubmitForm={(newValues: IAdult) => {
+                      const newArray = [...values?.adults];
+                      newArray[item] = {
+                        ...newValues,
+                        birthDate: moment(newValues?.birthDate).format(
+                          'DD-MM-YYYY',
+                        ),
+                      };
+                      setFieldValue('adults', newArray);
+                      handleNextStep();
+                    }}
+                  />
+                );
+              });
+            } else {
+              return <></>;
             }
-            return <></>;
+          };
+
+          const _renderInfoCustomerOrder = () => {
+            return (
+              <View
+                style={[
+                  CommonStyles.border__danger,
+                  CommonStyles.margin__bottom__10,
+                  CommonStyles.padding__horizontal__10,
+                  CommonStyles.padding__vertical__20,
+                  CommonStyles.bg__white,
+                ]}>
+                <View style={CommonStyles.flex__row}>
+                  <View style={[CommonStyles.padding__horizontal__5]}>
+                    <TextCustom
+                      style={[
+                        CommonStyles.text__font__20,
+                        CommonStyles.text__bold,
+                      ]}>
+                      {values.name}
+                    </TextCustom>
+                    <TextCustom
+                      style={[
+                        CommonStyles.text__font__20,
+                        CommonStyles.text__bold,
+                      ]}>
+                      {values.phone}
+                    </TextCustom>
+                    <TextCustom
+                      style={[
+                        CommonStyles.text__font__20,
+                        CommonStyles.text__bold,
+                      ]}>
+                      {values.email}
+                    </TextCustom>
+                  </View>
+                </View>
+              </View>
+            );
+          };
+
+          const _renderInfoConfirm = () => {
+            if (req?.adults) {
+              return [...Array(req?.adults).keys()].map(item => {
+                return (
+                  <View
+                    key={`_renderInfoConfirm-${item}`}
+                    style={[
+                      CommonStyles.content__center,
+                      CommonStyles.border__main,
+                      CommonStyles.padding__20,
+                    ]}>
+                    <View style={[CommonStyles.flex__row]}>
+                      <TextCustom
+                        style={[
+                          CommonStyles.flex__05,
+                          CommonStyles.text__font__20,
+                        ]}>
+                        {values?.adults[item]?.name}
+                      </TextCustom>
+                      <TextCustom
+                        style={[
+                          CommonStyles.flex__05,
+                          CommonStyles.text__font__20,
+                        ]}>
+                        {values?.adults[item]?.gender === '0' ? 'Nam' : 'Nữ'}
+                      </TextCustom>
+                    </View>
+                    <View
+                      style={[
+                        CommonStyles.flex__row,
+                        CommonStyles.justifyContent__spaceEvenly,
+                        CommonStyles.flex__05,
+                      ]}>
+                      <TextCustom
+                        style={[
+                          CommonStyles.flex__05,
+                          CommonStyles.text__font__20,
+                        ]}>
+                        {values?.adults[item]?.ccid}
+                      </TextCustom>
+                      <TextCustom
+                        style={[
+                          CommonStyles.flex__05,
+                          CommonStyles.text__font__20,
+                        ]}>
+                        {values?.adults[item]?.birthDate}
+                      </TextCustom>
+                    </View>
+                  </View>
+                );
+              });
+            } else {
+              return <></>;
+            }
           };
           return (
             <ScrollView
@@ -222,97 +292,116 @@ const FlightOrder: React.FC<IProps> = props => {
               showsVerticalScrollIndicator={false}
               showsHorizontalScrollIndicator={false}>
               <View onStartShouldSetResponder={() => true}>
-                <View
-                  style={[
-                    CommonStyles.bg__white,
-                    CommonStyles.margin__top__10,
-                    CommonStyles.padding__20,
-                    CommonStyles.border__gray,
-                  ]}>
-                  <TextCustom style={Styles.text__title}>
-                    Thông tin liên hệ
-                  </TextCustom>
-                  <InputCustom
-                    isRequired={true}
-                    placeholder="Nhập họ và tên..."
-                    lable="Họ và tên"
-                    value={values.name}
-                    onChangeText={handleChange('name')}
-                    onBlur={() => setFieldTouched('name')}
-                    error={
-                      touched.name && errors.name ? errors.name : undefined
-                    }
-                  />
-                  <InputCustom
-                    placeholder="Nhập email..."
-                    lable="Email"
-                    value={values.email}
-                    onChangeText={handleChange('email')}
-                    onBlur={() => setFieldTouched('email')}
-                    error={
-                      touched.email && errors.email ? errors.email : undefined
-                    }
-                  />
-                  <InputCustom
-                    isRequired={true}
-                    placeholder="Nhập số điện thoại..."
-                    lable="Số điện thoại"
-                    value={values.phone}
-                    onChangeText={handleChange('phone')}
-                    onBlur={() => setFieldTouched('phone')}
-                    error={
-                      touched.phone && errors.phone ? errors.phone : undefined
-                    }
-                  />
-
-                  <RadioButton.Group
-                    onValueChange={handleChange('gender')}
-                    value={values.gender as string}>
-                    <View
-                      style={[
-                        CommonStyles.flex__row,
-                        CommonStyles.justifyContent__spaceEvenly,
-                      ]}>
-                      <View>
-                        <TextCustom>Nam</TextCustom>
-                        <RadioButton value={'0'} />
-                      </View>
-                      <View>
-                        <TextCustom>Nữ</TextCustom>
-                        <RadioButton value={'1'} />
-                      </View>
-                    </View>
-                  </RadioButton.Group>
-                </View>
-
-                <View
-                  style={[
-                    CommonStyles.bg__white,
-                    CommonStyles.margin__top__10,
-                    CommonStyles.padding__20,
-                    CommonStyles.border__gray,
-                  ]}>
-                  <TextCustom style={Styles.text__title}>
-                    Thông tin khách hàng
-                  </TextCustom>
-                  {_renderFormAdules()}
-
-                  {/* {error && (
-                    <TextCustom style={CommonStyles.text__danger}>
-                      {error?.message}
+                {currentStep === 0 && (
+                  <View
+                    style={[
+                      CommonStyles.bg__white,
+                      CommonStyles.margin__top__10,
+                      CommonStyles.padding__20,
+                      CommonStyles.border__gray,
+                    ]}>
+                    <TextCustom style={Styles.text__title}>
+                      Thông tin liên hệ
                     </TextCustom>
-                  )} */}
+                    <InputCustom
+                      isRequired={true}
+                      placeholder="Nhập họ và tên..."
+                      lable="Họ và tên"
+                      value={values.name}
+                      onChangeText={handleChange('name')}
+                      onBlur={() => setFieldTouched('name')}
+                      error={
+                        touched.name && errors.name ? errors.name : undefined
+                      }
+                    />
+                    <InputCustom
+                      placeholder="Nhập email..."
+                      lable="Email"
+                      value={values.email}
+                      onChangeText={handleChange('email')}
+                      onBlur={() => setFieldTouched('email')}
+                      error={
+                        touched.email && errors.email ? errors.email : undefined
+                      }
+                    />
+                    <InputCustom
+                      isRequired={true}
+                      placeholder="Nhập số điện thoại..."
+                      lable="Số điện thoại"
+                      value={values.phone}
+                      onChangeText={handleChange('phone')}
+                      onBlur={() => setFieldTouched('phone')}
+                      error={
+                        touched.phone && errors.phone ? errors.phone : undefined
+                      }
+                      keyboardType="numeric"
+                    />
 
-                  <ButtonSubmit
-                    style={CommonStyles.margin__top__20}
-                    styleText={[
-                      CommonStyles.text__bold,
-                      CommonStyles.text__font__20,
-                    ]}
-                    title="Đặt vé"
-                    onPress={handleSubmit}
-                  />
-                </View>
+                    <RadioButton.Group
+                      onValueChange={handleChange('gender')}
+                      value={values.gender as string}>
+                      <View
+                        style={[
+                          CommonStyles.flex__row,
+                          CommonStyles.justifyContent__spaceEvenly,
+                        ]}>
+                        <View>
+                          <TextCustom>Nam</TextCustom>
+                          <RadioButton value={'0'} />
+                        </View>
+                        <View>
+                          <TextCustom>Nữ</TextCustom>
+                          <RadioButton value={'1'} />
+                        </View>
+                      </View>
+                    </RadioButton.Group>
+
+                    <ButtonSubmit
+                      style={CommonStyles.margin__top__20}
+                      styleText={[
+                        CommonStyles.text__bold,
+                        CommonStyles.text__font__20,
+                      ]}
+                      title="Tiếp theo"
+                      onPress={handleNextStep}
+                    />
+                  </View>
+                )}
+                {currentStep > 0 && currentStep <= req?.adults && (
+                  <View
+                    style={[
+                      CommonStyles.bg__white,
+                      CommonStyles.margin__top__10,
+                      CommonStyles.padding__20,
+                      CommonStyles.border__gray,
+                    ]}>
+                    <TextCustom style={Styles.text__title}>
+                      Thông tin khách hàng
+                    </TextCustom>
+                    {_renderFormAdules()}
+                  </View>
+                )}
+                {currentStep > req?.adults && (
+                  <View
+                    style={[
+                      CommonStyles.bg__white,
+                      CommonStyles.margin__top__10,
+                      CommonStyles.padding__20,
+                      CommonStyles.border__gray,
+                    ]}>
+                    {_renderInfoCustomerOrder()}
+                    {_renderInfoConfirm()}
+                    <ButtonSubmit
+                      style={CommonStyles.margin__top__20}
+                      styleText={[
+                        CommonStyles.text__bold,
+                        CommonStyles.text__font__20,
+                      ]}
+                      title="Đặt vé"
+                      onPress={handleSubmit}
+                    />
+                  </View>
+                )}
               </View>
             </ScrollView>
           );

@@ -27,10 +27,20 @@ interface IProps {
   disabled?: boolean;
   error?: string;
   onChange?: (date: Date) => void;
+  minimumDate?: Date;
+  maximumDate?: Date
 }
 
 const InputDatePicker: React.FC<IProps> = props => {
-  const {style, value = new Date(), lable, disabled, onChange} = props;
+  const {
+    style,
+    value = new Date(),
+    lable,
+    disabled,
+    onChange,
+    minimumDate,
+    maximumDate,
+  } = props;
   const [open, setOpen] = useState(false);
 
   const handleConfirm = (date: Date) => {
@@ -71,6 +81,8 @@ const InputDatePicker: React.FC<IProps> = props => {
           onCancel={() => {
             setOpen(false);
           }}
+          minimumDate={minimumDate}
+          maximumDate={maximumDate}
         />
       </View>
     </TouchableWithoutFeedback>

@@ -9,6 +9,7 @@ import UserReducer from './user/user.reducer';
 import FlightReducer from './flight/flight.reducer';
 import CommonReducer from './common/common.reducer';
 import ProvinceReducer from './province/province.reducer';
+import OrderReducer from './order/order.reducer'
 
 const loggerMiddleware = createLogger();
 
@@ -17,6 +18,7 @@ const reducers = combineReducers({
   user: UserReducer,
   flight: FlightReducer,
   province: ProvinceReducer,
+  order : OrderReducer
 });
 
 const persistConfig = {
