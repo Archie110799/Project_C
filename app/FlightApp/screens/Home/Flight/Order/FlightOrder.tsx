@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {RootState, useAppDispatch} from '../../../../redux/store';
 import {useSelector} from 'react-redux';
 import {Routes} from '../../../../navigators/Routes';
-import {ScrollView, View} from 'react-native';
+import {Alert, ScrollView, View} from 'react-native';
 import TextCustom from '../../../../components/common/TextCustom/TextCustom';
 import {Styles} from './FlightOrder.styles';
 import {CommonStyles} from '../../../../utils/styles';
@@ -24,12 +24,12 @@ interface IProps {
 }
 
 const validationSchema = Yup.object({
-  name: Yup.string().required('required').trim(),
-  email: Yup.string().trim().matches(validationEmail, 'format invalid'),
+  name: Yup.string().required('Dữ liệu không được để trống').trim(),
+  email: Yup.string().trim().matches(validationEmail, 'Định dạng không hợp lệ'),
   phone: Yup.string()
-    .required('required')
+    .required('Dữ liệu không được để trống')
     .trim()
-    .matches(validationPhone, 'format invalid'),
+    .matches(validationPhone, 'Định dạng không hợp lệ'),
 });
 
 const FlightOrder: React.FC<IProps> = props => {
@@ -42,10 +42,10 @@ const FlightOrder: React.FC<IProps> = props => {
 
   const initValue: IRequestOrder = {
     userId: user?._id,
-    name: 'asd',
-    email: 'asd@gmail.com',
+    name: '',
+    email: '',
     gender: '0',
-    phone: '2342342343',
+    phone: '',
     from: flightSelected[0],
     to: flightSelected[3],
     price: flightSelected[5],
@@ -71,14 +71,20 @@ const FlightOrder: React.FC<IProps> = props => {
   };
 
   const handleCreateOrder = (_info: IRequestOrder) => {
-    console.log(_info);
-
     dispatch(
       createOrderFlightAsync(_info, () => {
-        console.log('callback');
+        showAlert();
       }),
     );
   };
+
+  const showAlert = () =>
+    Alert.alert('Đăng ký', 'Đăng ký thành công.', [
+      {
+        text: 'OK',
+        onPress: () => navigation.replace(Routes.order.list),
+      },
+    ]);
 
   const _renderInfoFlight = () => {
     const from = flightSelected[0];
@@ -286,6 +292,7 @@ const FlightOrder: React.FC<IProps> = props => {
               return <></>;
             }
           };
+
           return (
             <ScrollView
               overScrollMode={'always'}

@@ -2,6 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {RootState, useAppDispatch} from '../../../../redux/store';
 import {useSelector} from 'react-redux';
 import {
+  ActivityIndicator,
   FlatList,
   Image,
   ListRenderItem,
@@ -58,8 +59,17 @@ const FlightManagement: React.FC<IProps> = props => {
       values.adults
     }-${values.children}-${values.babies}`;
     console.log({textReq});
-    
-    dispatch(getListFlightAsync(textReq));
+
+    dispatch(
+      getListFlightAsync(textReq, () => {
+        setState(prev => {
+          return {
+            ...prev,
+            isLoadEndList: true,
+          };
+        });
+      }),
+    );
   };
 
   const onRefresh = () => {
@@ -156,7 +166,9 @@ const FlightManagement: React.FC<IProps> = props => {
         </TextCustom>
       )}
 
-      {!flights?.length && (
+      {!isLoadEndList && <ActivityIndicator size="large" color={'red'} />}
+
+      {!flights?.length && isLoadEndList && (
         <ButtonSubmit
           style={[CommonStyles.border__white, CommonStyles.margin__top__10]}
           styleText={CommonStyles.color__white}
@@ -165,32 +177,34 @@ const FlightManagement: React.FC<IProps> = props => {
         />
       )}
 
-      <FlatList
-        style={CommonStyles.height__500}
-        ref={flatlistRef}
-        refreshControl={
-          <RefreshControl refreshing={false} onRefresh={onRefresh} />
-        }
-        data={flights}
-        onEndReachedThreshold={0.1}
-        scrollEventThrottle={1}
-        renderItem={_renderItem}
-        showsVerticalScrollIndicator={false}
-        showsHorizontalScrollIndicator={false}
-        ListEmptyComponent={
-          <>
-            {isLoadEndList && (
-              <View
-                onStartShouldSetResponder={() => true}
-                style={[CommonStyles.height__500]}>
-                <TextCustom style={[CommonStyles.text__center]}>
-                  List empty
-                </TextCustom>
-              </View>
-            )}
-          </>
-        }
-      />
+      {isLoadEndList && (
+        <FlatList
+          style={CommonStyles.height__500}
+          ref={flatlistRef}
+          refreshControl={
+            <RefreshControl refreshing={false} onRefresh={onRefresh} />
+          }
+          data={flights}
+          onEndReachedThreshold={0.1}
+          scrollEventThrottle={1}
+          renderItem={_renderItem}
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
+          ListEmptyComponent={
+            <>
+              {isLoadEndList && (
+                <View
+                  onStartShouldSetResponder={() => true}
+                  style={[CommonStyles.height__500]}>
+                  <TextCustom style={[CommonStyles.text__center]}>
+                    List empty
+                  </TextCustom>
+                </View>
+              )}
+            </>
+          }
+        />
+      )}
     </View>
   );
 };

@@ -64,6 +64,9 @@ export const CommonStyles = StyleSheet.create({
   margin__top__5: {
     marginTop: responsive.getHeight(5),
   },
+  margin__bottom__20: {
+    marginBottom: responsive.getHeight(20),
+  },
   margin__bottom__10: {
     marginBottom: responsive.getHeight(10),
   },

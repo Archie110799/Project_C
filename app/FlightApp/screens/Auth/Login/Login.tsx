@@ -19,15 +19,15 @@ interface IProps {
 }
 
 const validationSchema = Yup.object({
-  name: Yup.string().required('required').trim(),
+  name: Yup.string().required('Dữ liệu không được để trống').trim(),
   password: Yup.string()
-    .required('required')
-    .matches(validationSpacePassword, 'format invalid'),
+    .required('Dữ liệu không được để trống')
+    .matches(validationSpacePassword, 'Định dạng không hợp lệ'),
 });
 
 const initValue: IRequestLogin = {
-  name: 'admin',
-  password: 'admin',
+  name: '',
+  password: '',
 };
 
 const Login: React.FC<IProps> = props => {

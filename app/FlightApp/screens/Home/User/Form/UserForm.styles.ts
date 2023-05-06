@@ -5,8 +5,7 @@ import {responsive} from '../../../../utils/responsive';
 export const Styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    ...CommonStyles.padding__20,
   },
   text__title: {
     ...CommonStyles.text__center,

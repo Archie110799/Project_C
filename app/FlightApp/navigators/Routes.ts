@@ -8,9 +8,14 @@ export const Routes = {
     top: 'Top',
     tabBar: 'TabBar',
     list: 'List',
-    order: 'Order'
+    order: 'Order',
   },
   user: {
     profile: 'User Profile',
+    list: 'User List',
+    form: 'User Form',
+  },
+  order: {
+    list: 'Order List',
   },
 };

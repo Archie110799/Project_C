@@ -1,14 +1,12 @@
 interface IUser {
-  refresh_token?: string;
   __v?: number;
   _id?: string;
   name?: string;
   password?: string;
-}
-
-interface IUserUpdate {
-  name: string;
+  type?: number;
+  gender?: number;
   email?: string;
+  phone?: string;
 }
 
 interface IRequestLogin {
@@ -23,5 +21,5 @@ interface IRequestRegister {
   email: string;
   gender: string | number;
   phone: string;
-  type: number
+  type: number;
 }

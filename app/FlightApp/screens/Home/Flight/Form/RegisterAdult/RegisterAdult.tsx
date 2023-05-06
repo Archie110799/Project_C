@@ -15,11 +15,11 @@ interface IProps {
 }
 
 const validationSchema = Yup.object({
-  name: Yup.string().required('required').trim(),
+  name: Yup.string().required('Dữ liệu không được để trống').trim(),
   ccid: Yup.string()
-    .required('required')
+    .required('Dữ liệu không được để trống')
     .trim()
-    .matches(validationCCID, 'format invalid'),
+    .matches(validationCCID, 'Định dạng không hợp lệ'),
 });
 
 const initValue: IAdult = {
@@ -52,7 +52,6 @@ const RegisterAdultForm: React.FC<IProps> = props => {
         submitForm,
         setFieldValue,
       }) => {
-       
         return (
           <>
             <InputCustom
@@ -76,7 +75,7 @@ const RegisterAdultForm: React.FC<IProps> = props => {
 
             <InputDatePicker
               lable="Ngày sinh"
-              value={values.birthDate}
+              value={values.birthDate as Date}
               onChange={value => {
                 setFieldValue('birthDate', value);
               }}

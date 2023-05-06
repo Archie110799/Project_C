@@ -11,7 +11,15 @@ import {
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
-import {FlightManagement, FlightOrder, Main, UserManagement} from '../screens';
+import {
+  FlightManagement,
+  FlightOrder,
+  Main,
+  OrderList,
+  UserForm,
+  UserList,
+  UserManagement,
+} from '../screens';
 import {ImageSource} from '../assets/images';
 import {CommonStyles} from '../utils/styles';
 import BaseLayoutHome from '../components/layout/home/BaseLayoutHome';
@@ -38,6 +46,28 @@ const HomeStack: React.FC<IProps> = props => {
         name: Routes.home.order,
         title: 'Order',
         component: FlightOrder,
+      },
+    ],
+    [],
+  );
+
+  const userNavigator = useMemo(
+    () => [
+      // Flight
+      {
+        name: Routes.user.list,
+        title: 'Quản lý người dùng',
+        component: UserList,
+      },
+      {
+        name: Routes.user.form,
+        title: 'Tạo người dùng',
+        component: UserForm,
+      },
+      {
+        name: Routes.order.list,
+        title: 'Quản lý chuyến bay',
+        component: OrderList,
       },
     ],
     [],
@@ -91,6 +121,41 @@ const HomeStack: React.FC<IProps> = props => {
 
       <Stack.Group>
         {topNavigator.map(item => (
+          <Stack.Screen
+            options={{
+              headerShown: true,
+              headerStyle: {...CommonStyles.bg__main},
+              headerBackTitle: undefined,
+              headerRight: () => (
+                <TouchableOpacity
+                  style={CommonStyles.margin__right__10}
+                  onPress={() => navigation.navigate(Routes.auth.login)}>
+                  <Image
+                    style={CommonStyles.icon__default}
+                    source={ImageSource.iconLogout}
+                  />
+                </TouchableOpacity>
+              ),
+            }}
+            name={item.name}
+            key={`stack-top-${item.name}`}>
+            {stackProps => (
+              <TouchableWithoutFeedback
+                onPress={Keyboard.dismiss}
+                accessible={false}>
+                <View
+                  style={CommonStyles.flex__1}
+                  onStartShouldSetResponder={() => true}>
+                  <item.component {...stackProps} />
+                </View>
+              </TouchableWithoutFeedback>
+            )}
+          </Stack.Screen>
+        ))}
+      </Stack.Group>
+
+      <Stack.Group>
+        {userNavigator.map(item => (
           <Stack.Screen
             options={{
               headerShown: true,

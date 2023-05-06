@@ -1,20 +1,74 @@
-import {loginAPI, registerAPI} from '../api';
+import {
+  deleteUser,
+  getListUsers,
+  loginAPI,
+  registerAPI,
+  updateUser,
+} from '../api';
 import {AppThunk} from '../store';
-import {getUserFailure, getUserStart, getUserSuccess} from './user.reducer';
+import {
+  getListUserFailure,
+  getListUserSuccess,
+  getUserFailure,
+  getUserStart,
+  getUserSuccess,
+} from './user.reducer';
 
-export const fetchUser =
-  (userId: string): AppThunk =>
+export const getListUserAsync = (): AppThunk => async dispatch => {
+  dispatch(getUserStart());
+  return getListUsers()
+    .then(response => {
+      dispatch(getListUserSuccess(response?.data));
+      return response;
+    })
+    .catch(error => {
+      dispatch(getListUserFailure(error));
+      return error;
+    })
+    .finally(() => {
+      console.log('--------getListUserAsync finaly');
+    });
+};
+
+export const deleteUserAsync =
+  (userId: string | number): AppThunk =>
   async dispatch => {
-    try {
-      dispatch(getUserStart());
-      const response = await fetch(
-        `https://jsonplaceholder.typicode.com/users/${userId}`,
-      );
-      const data = await response.json();
-      dispatch(getUserSuccess(data));
-    } catch (error: any) {
-      dispatch(getUserFailure(error));
-    }
+    dispatch(getUserStart());
+    return deleteUser(userId)
+      .then(response => {
+        dispatch(getListUserAsync());
+        return response;
+      })
+      .catch(error => {
+        dispatch(getListUserFailure(error));
+        return error;
+      })
+      .finally(() => {
+        console.log('--------deleteUserAsync finaly');
+      });
+  };
+
+export const updateUserAsync =
+  (
+    userId: string | number,
+    user: IRequestRegister,
+    callback?: () => void,
+  ): AppThunk =>
+  async dispatch => {
+    dispatch(getUserStart());
+    return updateUser(user, userId)
+      .then(response => {
+        dispatch(getListUserAsync());
+        callback && callback()
+        return response;
+      })
+      .catch(error => {
+        dispatch(getListUserFailure(error));
+        return error;
+      })
+      .finally(() => {
+        console.log('--------updateUserAsync finaly');
+      });
   };
 
 export const loginAction =

@@ -27,13 +27,13 @@ const defaultValue: IState = {
 };
 
 const validationSchema = Yup.object({
-  dateFrom: Yup.string().required('required'),
-  dateTo: Yup.string().required('required'),
-  from: Yup.object().required('required'),
-  to: Yup.object().required('required'),
-  adults: Yup.number().required('required'),
-  children: Yup.number().required('required'),
-  babies: Yup.number().required('required'),
+  dateFrom: Yup.string().required('Dữ liệu không được để trống'),
+  dateTo: Yup.string().required('Dữ liệu không được để trống'),
+  from: Yup.object().required('Dữ liệu không được để trống'),
+  to: Yup.object().required('Dữ liệu không được để trống'),
+  adults: Yup.number().required('Dữ liệu không được để trống'),
+  children: Yup.number().required('Dữ liệu không được để trống'),
+  babies: Yup.number().required('Dữ liệu không được để trống'),
 });
 interface IFormSearch {
   dateFrom: any;

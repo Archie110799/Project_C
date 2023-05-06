@@ -7,12 +7,13 @@ import {
 } from './flight.reducer';
 
 export const getListFlightAsync =
-  (req: string): AppThunk =>
+  (req: string, callback?: () => void): AppThunk =>
   async dispatch => {
     dispatch(getFlightStart());
     return getFlightList(req)
       .then((response: any) => {
         dispatch(getFlightSuccess(response?.data?.flightList));
+        callback && callback();
         return response;
       })
       .catch(error => {

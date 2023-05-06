@@ -2,6 +2,7 @@ import axios from 'axios';
 import {API_URL} from '../../config/env';
 import {store} from '../store';
 import {getUserSuccess} from '../user/user.reducer';
+import {formatDate} from '../../utils/date';
 const {dispatch} = store;
 
 const API = axios.create({
@@ -86,9 +87,17 @@ export const registerAPI = (params: IRequestRegister) =>
   API.post('/user', params);
 
 // api user
-export const getInfoUsers = () => API.get('/user/info');
-export const updateInfoUser = async (formData: IUserUpdate) => {
-  return await API.put('/user/info', formData);
+export const getListUsers = () => API.get('/user');
+
+export const updateUser = async (
+  formData: IRequestRegister,
+  userId: string | number,
+) => {
+  return await API.put(`/user/${userId}`, formData);
+};
+
+export const deleteUser = async (userId: string | number) => {
+  return await API.delete(`/user/${userId}`);
 };
 
 // api flight
@@ -96,8 +105,8 @@ export const getFlightList = (params: string) => API.get(`/?req=${params}`);
 
 // api Order
 export const getListFlightOrder = () => API.get(`/flight`);
-export const getListFlightOrderByUser = (userId : string | number) => API.get(`/flight/${userId}`);
-
+export const getListFlightOrderByUser = (userId: string | number) =>
+  API.get(`/flight/${userId}`);
 
 export const createFlightOrder = async (formData: IRequestOrder) => {
   return await API.post('/flight', formData);

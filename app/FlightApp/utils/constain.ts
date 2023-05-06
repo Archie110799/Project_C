@@ -9,3 +9,8 @@ export const HTTPError = {
   ACCOUNT_SUSPENDED: 'ACCOUNT_SUSPENDED',
   DISCONNECT: 'DISCONNECT',
 };
+
+export const UserPermision = {
+  CUSTOMER: 1,
+  ADMIN: 0,
+};

@@ -1,8 +1,8 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
 interface OrdertState {
-  orders: any;
-  orderSelected: any;
+  orders?: Array<IOrder>;
+  orderSelected?: IOrder;
   error: string | null;
 }
 
@@ -26,7 +26,7 @@ const orderSlice = createSlice({
     getOrderFailure(state, action: PayloadAction<string>) {
       state.error = action.payload;
     },
-    selectOrder(state, action: PayloadAction<string>) {
+    selectOrder(state, action: PayloadAction<IOrder>) {
       state.orderSelected = action.payload;
     },
     clearOrder(state) {
