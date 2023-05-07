@@ -58,7 +58,7 @@ const UserManagement: React.FC<IProps> = props => {
       {user?.type === UserPermision.ADMIN
         ? _renderOptionAdmin()
         : _renderItem('Xem chuyến bay', () => {
-            console.log(1);
+            navigation.navigate(Routes.order.list);
           })}
     </View>
   );
